@@ -21,7 +21,7 @@ class MainMenuScene: SKScene {
         let localGame = SKSpriteNode(color: UIColor.white, size: CGSize(width: size.width * 0.7, height: size.height * 0.1))
         localGame.zPosition = -1
         localGame.addChild(localGameLabel)
-        localGame.position = CGPoint(x: view.frame.width / 2, y: view.frame.height * 2 / 3)
+        localGame.position = CGPoint(x: view.frame.midX, y: view.frame.height * 2 / 3)
         localGame.name = "Local_Game"
         localGame.children[0].name = localGame.name
         
@@ -32,7 +32,7 @@ class MainMenuScene: SKScene {
         let onlineGame = SKSpriteNode(color: UIColor.white, size: CGSize(width: size.width * 0.7, height: size.height * 0.1))
         onlineGame.zPosition = -1
         onlineGame.addChild(onlineGameLabel)
-        onlineGame.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 3)
+        onlineGame.position = CGPoint(x: view.frame.midX, y: view.frame.height / 3)
         onlineGame.name = "Online_Game"
         onlineGame.children[0].name = onlineGame.name
         

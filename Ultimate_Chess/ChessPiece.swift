@@ -10,20 +10,20 @@ import SpriteKit
 
 
 class ChessPiece: SKSpriteNode {
-    
     var belong: Int = 0
     var currentSquare: Square?
-    var movableSquares: [Square]?
-    var takableSquares: [Square]?
-    
+    var movableSquares = [Square]()
+    var takableSquares = [Square]()
+    var takable: Bool = true
     init() {
         super.init(texture: SKTexture(imageNamed: "Test"), color: .cyan, size: currentSquare?.squareSize ?? CGSize())
         self.belong = 0
     }
     
-    init(belong: Int, name: String) {
-        super.init(texture: SKTexture(imageNamed: name), color: .white, size: currentSquare?.size ?? CGSize())
+    init(belong: Int, name: String, square: Square) {
+        super.init(texture: SKTexture(imageNamed: name), color: .white, size: square.size)
         self.belong = belong
+        self.currentSquare = square
     }
     
     required init?(coder aDecoder: NSCoder) {

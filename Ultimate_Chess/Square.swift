@@ -13,7 +13,8 @@ class Square: SKSpriteNode {
     
     var boardCoordinate: ChessboardCoordinate = ChessboardCoordinate()
     var squareSize: CGSize = CGSize()
-    
+    var hasPiece: Bool = false
+    var piece: ChessPiece?
     //到下面註解為止這幾個沒有實際用處
     init() {
         super.init(texture: SKTexture(imageNamed: "Test"),color: .white, size: squareSize)
@@ -31,7 +32,8 @@ class Square: SKSpriteNode {
 
     //要初始化都用下面這一個
     init(rank: Int, file: Int, size: CGSize) {
-        squareSize = size
+        let w = size.width / 10
+        squareSize = CGSize(width: w, height: w)
         var imageName = ""
         if (rank+file) % 2 == 0 {
             imageName = "Square_Dark"
@@ -39,9 +41,12 @@ class Square: SKSpriteNode {
             imageName = "Square_Light"
         }
         super.init(texture: SKTexture(imageNamed: imageName),color: .white, size: squareSize)
+        
         boardCoordinate = ChessboardCoordinate(rank: rank, file: file)
-        let vPosition = CGFloat((CGFloat(Float(self.boardCoordinate.rank)) + 4.8) * squareSize.height)
-        let hPosition = CGFloat((CGFloat(Float(self.boardCoordinate.file)) + 0.5) * squareSize.width)
+        let vPosition = CGFloat((CGFloat(Float(self.boardCoordinate.rank) + 0.5)) * squareSize.height - 0.6 * size.width)
+        let hPosition = CGFloat((CGFloat(Float(self.boardCoordinate.file) + 0.5)) * squareSize.width - size.width / 2)
+        //print(hPosition, vPosition)
+        self.zPosition = 1
         self.position = CGPoint(x: hPosition, y: vPosition)
     }
     

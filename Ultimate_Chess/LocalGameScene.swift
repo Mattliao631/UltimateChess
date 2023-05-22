@@ -10,12 +10,25 @@ import SpriteKit
 
 
 class LocalGameScene: SKScene {
-    var board: Board?
+    
+    let backButton = SKSpriteNode(texture: SKTexture(imageNamed: "Back_Button"))
     
     override func didMove(to view: SKView) {
         print("Transition succeed!")
-        board?.view = view
-        board = Board()
-        self.addChild(board!)
+        backButton.size = CGSize(width: self.size.width / 10, height: self.size.height / 20)
+        backButton.position = CGPoint(x: self.size.width / 10, y: self.size.height * 0.9)
+        backButton.name = "Back_Button"
+        self.addChild(backButton)
+        
+        let board = Board(size: self.size)
+        board.zPosition = -1
+        board.name = "Board"
+        self.addChild(board)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self.view)
+        }
     }
 }
