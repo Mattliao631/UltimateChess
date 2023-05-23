@@ -134,6 +134,14 @@ var UltimateChessMapping = [
     "(10,9)": "Black_Pawn",
 ]
 
+let ChessTypes = [
+    "King": ["King", "Conqueror", "Underworld_Lord"],
+    "Queen": ["Queen", "The_Fantasy", "Rose_Queen"],
+    "Bishop": ["Bishop", "Divine_Blessed", "Space_Grimoire"],
+    "Knight": ["Knight", "Unicorn", "Pegasus_Rider"],
+    "Rook": ["Rook", "Brave_Flag", "The_Indestrucible"],
+    "Pawn": ["Pawn", "Rose_Garden_Guard", "Zombie"]
+]
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)
 let boardUpperBound = ChessboardCoordinate(rank: 11, file: 9)

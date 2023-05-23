@@ -10,11 +10,14 @@ import SpriteKit
 
 
 class ChessPiece: SKSpriteNode {
+    
     var belong: Int = 0
     var currentSquare: Square?
     var movableSquares = [Square]()
     var takableSquares = [Square]()
     var takable: Bool = true
+    
+    var type: String = ""
     init() {
         super.init(texture: SKTexture(imageNamed: "Test"), color: .cyan, size: currentSquare?.squareSize ?? CGSize())
         self.belong = 0

@@ -12,6 +12,7 @@ import SpriteKit
 class King: ChessPiece {
     override init(belong: Int, name: String, square: Square) {
         super.init(belong: belong, name: name, square: square)
+        self.type = "King"
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -20,22 +20,59 @@ class Board: SKSpriteNode {
         
         
         //給出square具體大小
-        let w = CGFloat(size.width)
-        let squareSize = CGSize(width: w, height: w)
 
         for rank in 0...11 {
             var tempRank = [Square]()
             for file in 0...9 {
                 tempRank.append(Square(rank: rank, file: file, size: self.size))
-                if let str = UltimateChessMapping["\(rank),\(file)"] {
+                //print(UltimateChessMapping["(\(rank),\(file))"] ?? "\(rank),\(file) not found")
+                
+                if let str = UltimateChessMapping["(\(rank),\(file))"] {
+                    //print("(\(rank),\(file))", str)
                     var piece: ChessPiece?
                     switch str {
+                    case "White_Pawn":
+                        piece = Pawn(belong: 0, name: str, square: tempRank[file])
+                        break
                     case "White_Rook":
                         piece = Rook(belong: 0, name: str, square: tempRank[file])
+                        break
+                    case "White_Knight":
+                        piece = Knight(belong: 0, name: str, square: tempRank[file])
+                        break
+                    case "White_Bishop":
+                        piece = Bishop(belong: 0, name: str, square: tempRank[file])
+                        break
+                    case "White_Queen":
+                        piece = Queen(belong: 0, name: str, square: tempRank[file])
+                        break
+                    case "White_King":
+                        piece = King(belong: 0, name: str, square: tempRank[file])
+                        break
+                    case "Black_Pawn":
+                        piece = Pawn(belong: 1, name: str, square: tempRank[file])
+                        break
+                    case "Black_Rook":
+                        piece = Rook(belong: 1, name: str, square: tempRank[file])
+                        break
+                    case "Black_Knight":
+                        piece = Knight(belong: 1, name: str, square: tempRank[file])
+                        break
+                    case "Black_Bishop":
+                        piece = Bishop(belong: 1, name: str, square: tempRank[file])
+                        break
+                    case "Black_Queen":
+                        piece = Queen(belong: 1, name: str, square: tempRank[file])
+                        break
+                    case "Black_King":
+                        piece = King(belong: 1, name: str, square: tempRank[file])
+                        break
                     default:
                         break
                     }
-                    piece?.name = str
+                    piece?.name = "ChessPiece"
+                    piece?.zPosition = 2
+                    //print("(\(rank),\(file))", piece!)
                     tempRank[file].addChild(piece!)
                     tempRank[file].hasPiece = true
                     tempRank[file].piece = piece

@@ -12,6 +12,7 @@ class Pawn: ChessPiece {
     
     override init(belong: Int, name: String, square: Square) {
         super.init(belong: belong, name: name, square: square)
+        self.type = "Pawn"
     }
     
     required init?(coder aDecoder: NSCoder) {

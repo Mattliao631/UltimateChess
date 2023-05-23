@@ -10,6 +10,7 @@ import UIKit
 class Knight: ChessPiece {
     override init(belong: Int, name: String, square: Square) {
         super.init(belong: belong, name: name, square: square)
+        self.type = "Knight"
     }
     
     required init?(coder aDecoder: NSCoder) {
