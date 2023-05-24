@@ -17,7 +17,7 @@ class ChessPiece: SKSpriteNode {
     var takableSquares = [Square]()
     var takable: Bool = true
     var type: String = ""
-    
+    var cost: Int = 0
     init() {
         super.init(texture: SKTexture(imageNamed: "Test"), color: .cyan, size: currentSquare?.squareSize ?? CGSize())
         self.belong = 0

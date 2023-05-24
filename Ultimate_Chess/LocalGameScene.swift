@@ -114,12 +114,9 @@ class LocalGameScene: SKScene {
     
     
     func createButtons() {
-        //print(1)
         createBackButton()
-        //print(2)
         createConfirmButton()
-        //print(3)
-        createUpGradePoint()
+        createUpgradePoint()
     }
     
     func createBackButton() {
@@ -142,38 +139,56 @@ class LocalGameScene: SKScene {
         }
     }
     
-    func createUpGradeInterface(belong: Int, typeList: [String]) {
+    func createUpgradeInterface(piece: ChessPiece, typeList: [String]) {
 
         let texture = SKTexture(imageNamed: "Upgrade_Interface")
-        let size = CGSize(width: self.frame.width, height: self.frame.height * 0.3)
-        let interface = SKSpriteNode(texture: texture, color: .white, size: size)
-        interface.name = "Player\(belong)'s Interface"
-        interface.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * abs(CGFloat(belong) - 0.25))
+        let size = CGSize(width: self.frame.width, height: self.frame.height * 0.2)
+        let interface = UpgradeInterface(texture: texture, size: size, piece: piece)
+        interface.name = "Player\(piece.belong)'s Interface"
+        interface.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * abs(CGFloat(piece.belong) - 0.25))
         interface.zPosition = 2
         
-        createExitButton(belong: belong, interface: interface)
-        createUpGradeChoice(belong: belong, typeList: typeList)
+        createExitButton(interface: interface)
+        createUpgradeChoice(typeList: typeList, interface: interface)
         
-        interface.zRotation = CGFloat(belong) * MLPi
+        interface.zRotation = CGFloat(piece.belong) * MLPi
         self.addChild(interface)
     }
     
-    func createExitButton(belong: Int, interface: SKSpriteNode) {
+    func createExitButton(interface: UpgradeInterface) {
         let texture = SKTexture(imageNamed: "Interface_Exit")
         let w = interface.size.width / 10
         let size = CGSize(width: w, height: w)
         let exit = SKSpriteNode(texture: texture, color: .white, size: size)
-        exit.zPosition = 1
-        exit.name = "Player\(belong)'s Interface Exit"
+        exit.zPosition = 3
+        exit.name = "Player\(interface.selectedPiece.belong)'s Interface Exit"
         exit.position = CGPoint(x: 4 * w,y: interface.size.height * 0.35)
         interface.addChild(exit)
     }
     
-    func createUpGradeChoice (belong: Int, typeList: [String]) {
-        print(belong, typeList)
+    func createUpgradeChoice (typeList: [String], interface: UpgradeInterface) {
+        print(interface.selectedPiece.belong, typeList)
+        var i = 0
+        for type in typeList {
+            var imageName = ""
+            if interface.selectedPiece.belong == 0 {
+                imageName = "White_\(type)"
+            } else if interface.selectedPiece.belong == 1 {
+                imageName = "Black_\(type)"
+            }
+            
+            let texture = SKTexture(imageNamed: imageName)
+            let size = CGSize(width: interface.size.width / 3.2, height: interface.size.height * 0.7)
+            let choice = UpgradeChoice(texture: texture, size: size, type: type)
+            choice.zPosition = 1
+            choice.position = CGPoint(x: interface.size.width * (CGFloat(i) - 1) / 3, y: 0)
+            choice.name = "Player\(interface.selectedPiece.belong)'s Upgrade Choice"
+            interface.addChild(choice)
+            i+=1
+        }
     }
     
-    func createUpGradePoint() {
+    func createUpgradePoint() {
         for i in 0...(numberOfPlayers-1) {
             upGradePoint.append(80)
             let point = SKSpriteNode(color: .cyan, size: CGSize(width: self.frame.width / 7, height: self.frame.height * 0.05))
@@ -220,7 +235,7 @@ class LocalGameScene: SKScene {
                         }
                     }
                 }
-                createUpGradeInterface(belong: touchedPiece.belong, typeList: touchedType)
+                createUpgradeInterface(piece: touchedPiece, typeList: touchedType)
             } else if touchedNode.name == "BackButton" {
                 //print("BackButton!")
                 let MainMenuScene = MainMenuScene(size: self.size)
@@ -235,6 +250,10 @@ class LocalGameScene: SKScene {
             } else if touchedNode.name == "Player1's Interface Exit" {
                 if let interface = self.childNode(withName: "Player1's Interface"){
                     interface.removeFromParent()
+                }
+            } else if touchedNode.name == "Player0's Upgrade Choice" || touchedNode.name == "Player1's Upgrade Choice" {
+                if let choice = (touchedNode as? UpgradeChoice) {
+                    choice.changePiece()
                 }
             } else if touchedNode.name == "Player0's Confirm" {
                 
