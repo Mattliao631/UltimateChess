@@ -7,6 +7,8 @@
 
 import Foundation
 
+let MLPi = 3.14159265358
+
 
 func +(lhs: ChessboardCoordinate, rhs: ChessboardCoordinate)->ChessboardCoordinate {
     let newCoordinate = ChessboardCoordinate(rank: lhs.rank+rhs.rank, file: lhs.file+rhs.file)
@@ -93,8 +95,8 @@ var UltimateChessMapping = [
     "(0,1)": "White_Knight",
     "(0,2)": "White_Bishop",
     "(0,3)": "White_Knight",
-    "(0,4)": "White_King",
-    "(0,5)": "White_Queen",
+    "(0,4)": "White_Queen",
+    "(0,5)": "White_King",
     "(0,6)": "White_Bishop",
     "(0,7)": "White_Knight",
     "(0,8)": "White_Bishop",
@@ -115,8 +117,8 @@ var UltimateChessMapping = [
     "(11,1)": "Black_Knight",
     "(11,2)": "Black_Bishop",
     "(11,3)": "Black_Knight",
-    "(11,4)": "Black_King",
-    "(11,5)": "Black_Queen",
+    "(11,4)": "Black_Queen",
+    "(11,5)": "Black_King",
     "(11,6)": "Black_Bishop",
     "(11,7)": "Black_Knight",
     "(11,8)": "Black_Bishop",
@@ -133,6 +135,8 @@ var UltimateChessMapping = [
     "(10,8)": "Black_Pawn",
     "(10,9)": "Black_Pawn",
 ]
+
+
 
 let ChessTypes = [
     "King": ["King", "Conqueror", "Underworld_Lord"],

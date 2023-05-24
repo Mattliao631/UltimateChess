@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import SpriteKit
+
 
 class Pawn: ChessPiece {
     var canBeEnPassant: Bool = false
     
-    override init(belong: Int, name: String, square: Square) {
-        super.init(belong: belong, name: name, square: square)
+    override init(belong: Int, texture: SKTexture, square: Square) {
+        super.init(belong: belong, texture: texture, square: square)
         self.type = "Pawn"
     }
     

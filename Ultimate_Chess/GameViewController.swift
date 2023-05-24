@@ -14,10 +14,11 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let view = self.view as! SKView? {
+           
             let MainMenuScene = MainMenuScene(size: view.frame.size)
             MainMenuScene.scaleMode = .aspectFill
             view.presentScene(MainMenuScene)
-            
+           
             
             view.ignoresSiblingOrder = true
             view.showsFPS = true

@@ -9,6 +9,7 @@ class MainMenuScene: SKScene {
     let onlineGameLabel = SKLabelNode(text: "Play Online")
     
     override func didMove(to view: SKView) {
+        //print(view.coordinateSpace)
         localGameLabel.horizontalAlignmentMode = .center
         localGameLabel.verticalAlignmentMode = .center
         onlineGameLabel.horizontalAlignmentMode = .center
@@ -48,6 +49,7 @@ class MainMenuScene: SKScene {
             let touchedNode = atPoint(location)
             
             if let nodeName = touchedNode.name {
+                //print(nodeName)
                 switch nodeName {
                 case "Local_Game":
                     let localGameScene = LocalGameScene(size: self.size)

@@ -12,7 +12,7 @@ import SpriteKit
 class Square: SKSpriteNode {
     
     var boardCoordinate: ChessboardCoordinate = ChessboardCoordinate()
-    var squareSize: CGSize = CGSize()
+    var squareSize: CGSize!
     var hasPiece: Bool = false
     var piece: ChessPiece?
     //到下面註解為止這幾個沒有實際用處
@@ -31,16 +31,12 @@ class Square: SKSpriteNode {
     //到上面註解為止這幾個沒有實際用處
 
     //要初始化都用下面這一個
-    init(rank: Int, file: Int, size: CGSize) {
+    init(texture: SKTexture, size: CGSize, rank: Int, file: Int) {
+        
         let w = size.width / 10
         squareSize = CGSize(width: w, height: w)
-        var imageName = ""
-        if (rank+file) % 2 == 0 {
-            imageName = "Square_Dark"
-        } else {
-            imageName = "Square_Light"
-        }
-        super.init(texture: SKTexture(imageNamed: imageName),color: .white, size: squareSize)
+        
+        super.init(texture: texture, color: .white, size: squareSize)
         
         boardCoordinate = ChessboardCoordinate(rank: rank, file: file)
         let vPosition = CGFloat((CGFloat(Float(self.boardCoordinate.rank) + 0.5)) * squareSize.height - 0.6 * size.width)
