@@ -13,7 +13,7 @@ class Space_Grimoire: Bishop {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Space_Grimoire"
-        self.cost = 7
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -18,14 +18,19 @@ class UpgradeChoice: SKSpriteNode {
     func changePiece() {
         if let interface = (self.parent as? UpgradeInterface) {
             var imageName = ""
-            if interface.selectedPiece.belong == 0 {
+            let oldPiece = interface.selectedPiece!
+            let square = oldPiece.currentSquare!
+            let belong = oldPiece.belong
+            
+            
+            if belong == 0 {
                 imageName = "White_\(type)"
-            } else if interface.selectedPiece.belong == 1 {
+            } else if belong == 1 {
                 imageName = "Black_\(type)"
             }
+            
+            
             let texture = SKTexture(imageNamed: imageName)
-            let square = interface.selectedPiece.currentSquare!
-            let belong = interface.selectedPiece.belong
             var piece: ChessPiece!
             switch type {
             case "Pawn":
@@ -79,16 +84,24 @@ class UpgradeChoice: SKSpriteNode {
             case "Conqueror":
                 piece = Conqueror(belong: belong, texture: texture, square: square)
                 break
-            case "Underwrold_Lord":
+            case "Underworld_Lord":
                 piece = Underworld_Lord(belong: belong, texture: texture, square: square)
                 break
             default:
                 break
             }
+            piece!.zPosition = 1
             if piece!.belong == 1 {
                 piece!.zRotation = MLPi
             }
-            print("\(type)->\(imageName)->",piece!)
+            oldPiece.currentSquare = nil
+            oldPiece.removeFromParent()
+            
+            piece!.name = "ChessPiece"
+            square.piece = piece!
+            square.addChild(piece)
+            
+            print("\(type)->\(imageName)->",square.childNode(withName: "ChessPiece") as! ChessPiece)
         }
     }
     required init?(coder aDecoder: NSCoder) {

@@ -12,6 +12,7 @@ class Pegasus_Rider: Knight {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Pegasus_Rider"
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {

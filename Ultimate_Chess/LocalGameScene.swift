@@ -17,6 +17,14 @@ class LocalGameScene: SKScene {
     let numberOfPlayers = 2
     var upGradePointDisplay = [SKSpriteNode]()
     var upGradePoint = [Int]()
+    var confirm_0 = false
+    var confirm_1 = false
+    
+    override func didMove(to view: SKView) {
+        print("Transition succeed!")
+        createButtons()
+        createBoard()
+    }
     
     func createBoard() {
         let texture = SKTexture(imageNamed: "ChessBoard")
@@ -183,6 +191,16 @@ class LocalGameScene: SKScene {
             choice.zPosition = 1
             choice.position = CGPoint(x: interface.size.width * (CGFloat(i) - 1) / 3, y: 0)
             choice.name = "Player\(interface.selectedPiece.belong)'s Upgrade Choice"
+            let label = SKLabelNode(fontNamed: "Avenir")
+            label.horizontalAlignmentMode = .center
+            label.verticalAlignmentMode = .center
+            label.fontSize = 25
+            label.fontColor = .black
+            label.text = "\(PieceCosts[type]!)"
+            label.zPosition = 1
+            label.position = CGPoint(x: 0, y: -choice.size.height * 0.5)
+            label.name = "Cost"
+            choice.addChild(label)
             interface.addChild(choice)
             i+=1
         }
@@ -204,16 +222,25 @@ class LocalGameScene: SKScene {
             point.zPosition = 1
             point.position = CGPoint(x: self.size.width * 0.9, y: self.frame.maxY * abs(CGFloat(i) - 0.05))
             point.name = "Player\(i)'s Point Background"
+            point.zRotation = MLPi * CGFloat(i)
             upGradePointDisplay.append(point)
             self.addChild(point)
         }
     }
     
+    func refreshPoint(belong: Int) {
+        let label = (upGradePointDisplay[belong].childNode(withName: "Player\(belong)'s Point") as! SKLabelNode)
+        label.text = String(upGradePoint[belong])
+    }
     
-    override func didMove(to view: SKView) {
-        print("Transition succeed!")
-        createButtons()
-        createBoard()
+    func gameStart() {
+        print("Game Start!")
+        let chessGameScene = ChessGameScene(size: self.size)
+        chessGameScene.scaleMode = self.scaleMode
+        
+        chessGameScene.board = self.board
+        self.view?.presentScene(chessGameScene)
+        self.removeFromParent()
     }
     
     
@@ -251,14 +278,48 @@ class LocalGameScene: SKScene {
                 if let interface = self.childNode(withName: "Player1's Interface"){
                     interface.removeFromParent()
                 }
-            } else if touchedNode.name == "Player0's Upgrade Choice" || touchedNode.name == "Player1's Upgrade Choice" {
+            } else if touchedNode.name == "Player0's Upgrade Choice" {
                 if let choice = (touchedNode as? UpgradeChoice) {
-                    choice.changePiece()
+                    if let costLabel = (choice.childNode(withName: "Cost") as? SKLabelNode) {
+                        let interface = self.childNode(withName: "Player0's Interface") as! UpgradeInterface
+                        let cost = Int(costLabel.text!)! - interface.selectedPiece.cost
+                        if upGradePoint[0] - cost >= 0 {
+                            choice.changePiece()
+                            upGradePoint[0] -= cost
+                            refreshPoint(belong: 0)
+                            interface.removeFromParent()
+                        } else {
+                            print("Unaffordable for player 0")
+                        }
+                    }
+                }
+            } else if touchedNode.name == "Player1's Upgrade Choice" {
+                if let choice = (touchedNode as? UpgradeChoice) {
+                    if let costLabel = (choice.childNode(withName: "Cost") as? SKLabelNode) {
+                        let interface = self.childNode(withName: "Player1's Interface") as! UpgradeInterface
+                        let cost = Int(costLabel.text!)! - interface.selectedPiece.cost
+                        if upGradePoint[1] >= cost {
+                            choice.changePiece()
+                            upGradePoint[1] -= cost
+                            refreshPoint(belong: 1)
+                            if let interface = self.childNode(withName: "Player1's Interface"){
+                                interface.removeFromParent()
+                            }
+                        } else {
+                            print("Unaffordable for player 1")
+                        }
+                    }
                 }
             } else if touchedNode.name == "Player0's Confirm" {
-                
+                confirm_0 = !confirm_0
+                if confirm_0 && confirm_1 {
+                    gameStart()
+                }
             } else if touchedNode.name == "Player1's Confirm" {
-                
+                confirm_1 = !confirm_1
+                if confirm_0 && confirm_1 {
+                    gameStart()
+                }
             }
         }
     }

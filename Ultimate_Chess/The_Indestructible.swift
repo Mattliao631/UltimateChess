@@ -13,6 +13,7 @@ class The_Indestructible: Rook {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "The_Indestructible"
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -13,7 +13,7 @@ class Rose_Queen: Queen {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Rose_Queen"
-        self.cost = 60
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {

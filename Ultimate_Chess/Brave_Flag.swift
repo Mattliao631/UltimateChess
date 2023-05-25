@@ -12,7 +12,8 @@ import SpriteKit
 class Brave_Flag: Rook {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
-        self.type = "BraveFlag"
+        self.type = "Brave_Flag"
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {

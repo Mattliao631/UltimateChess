@@ -143,8 +143,29 @@ let ChessTypes = [
     "Queen": ["Queen", "The_Fantasy", "Rose_Queen"],
     "Bishop": ["Bishop", "Divine_Blessed", "Space_Grimoire"],
     "Knight": ["Knight", "Unicorn", "Pegasus_Rider"],
-    "Rook": ["Rook", "Brave_Flag", "The_Indestrucible"],
+    "Rook": ["Rook", "Brave_Flag", "The_Indestructible"],
     "Pawn": ["Pawn", "Rose_Garden_Guard", "Zombie"]
+]
+
+let PieceCosts = [
+    "King" : 0,
+    "Queen" : 0,
+    "Bishop" : 0,
+    "Knight" : 0,
+    "Rook" : 0,
+    "Pawn" : 0,
+    "Conqueror" : 40,
+    "Underworld_Lord" : 10,
+    "The_Fantasy" : 2,
+    "Rose_Queen" : 50,
+    "Space_Grimoire" : 7,
+    "Divine_Blessed" : 4,
+    "Unicorn" : 4,
+    "Pegasus_Rider" : 6,
+    "Brave_Flag" : 2,
+    "The_Indestructible": 2,
+    "Zombie" : 4,
+    "Rose_Garden_Guard" : 1
 ]
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)

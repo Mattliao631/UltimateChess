@@ -13,7 +13,7 @@ class Underworld_Lord: King {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Underworld_Lord"
-        self.cost = 10
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {

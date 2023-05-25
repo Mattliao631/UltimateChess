@@ -13,7 +13,7 @@ class Divivne_Blessed: Bishop {
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Divine_Blessed"
-        self.cost = 4
+        self.cost = PieceCosts[self.type]!
     }
     
     required init?(coder aDecoder: NSCoder) {
