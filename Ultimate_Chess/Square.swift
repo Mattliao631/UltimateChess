@@ -9,6 +9,12 @@ import UIKit
 import SpriteKit
 
 
+func ==(lhs: Square, rhs: Square) -> Bool {
+    if lhs.boardCoordinate == rhs.boardCoordinate {
+        return true
+    }
+    return false
+}
 class Square: SKSpriteNode {
     
     var boardCoordinate: ChessboardCoordinate = ChessboardCoordinate()

@@ -6,9 +6,21 @@
 //
 
 import Foundation
+import SpriteKit
 
 let MLPi = 3.14159265358
 
+func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    return CGPoint(x: lhs.x+rhs.x, y: lhs.y+rhs.y)
+}
+
+func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+    return CGPoint(x: lhs.x-rhs.x, y: lhs.y-rhs.y)
+}
+
+prefix func -(operand: CGPoint) -> CGPoint {
+    return CGPoint(x: -operand.x, y: -operand.y)
+}
 
 func +(lhs: ChessboardCoordinate, rhs: ChessboardCoordinate)->ChessboardCoordinate {
     let newCoordinate = ChessboardCoordinate(rank: lhs.rank+rhs.rank, file: lhs.file+rhs.file)
@@ -238,7 +250,7 @@ func PawnMove(piece: ChessPiece, board: Board) {
     //判斷旁邊是否有剛跳完的兵，如果有則將斜前方加入可移動格子（觸發移動時再判定將En Passant的敵方士兵消除
     if boundCheck(take1) && boundCheck(EnPassant1) {
         let EnPassantSquare = board.getSquare(EnPassant1)
-        if EnPassantSquare.hasPiece &&  EnPassantSquare.piece!.takable && EnPassantSquare.piece!.belong != piece.belong {
+        if EnPassantSquare.hasPiece && EnPassantSquare.piece!.takable && EnPassantSquare.piece!.belong != piece.belong {
             if let tempPawn = (EnPassantSquare.piece as? Pawn) {
                 if tempPawn.canBeEnPassant {
                     let takeSquare = board.getSquare(take1)
@@ -413,9 +425,8 @@ func KnightMove(piece: ChessPiece, board: Board) {
         let goingTo = piece.currentSquare!.boardCoordinate + direction
         if boundCheck(goingTo) {
             let toSquare = board.getSquare(goingTo)
-            
-            if toSquare.hasPiece && toSquare.piece!.belong != piece.belong {
-                if toSquare.piece!.takable {
+            if toSquare.hasPiece {
+                if toSquare.piece!.takable && toSquare.piece!.belong != piece.belong {
                     piece.takableSquares.append(toSquare)
                 }
             } else {

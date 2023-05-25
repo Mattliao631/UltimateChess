@@ -22,6 +22,5 @@ class Rook: ChessPiece {
     override func collectMove() {
         super.collectMove()
         RookMove(piece: self, board: parent?.parent as! Board)
-        print(movableSquares, takableSquares)
     }
 }

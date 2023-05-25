@@ -10,10 +10,12 @@ import SpriteKit
 
 
 class Space_Grimoire: Bishop {
+    
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Space_Grimoire"
         self.cost = PieceCosts[self.type]!
+        self.canMove = false
     }
     
     required init?(coder aDecoder: NSCoder) {

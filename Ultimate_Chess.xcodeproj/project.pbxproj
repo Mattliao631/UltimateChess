@@ -35,6 +35,7 @@
 		19359DD02A1B554A00FE2156 /* Knight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19359DCF2A1B554A00FE2156 /* Knight.swift */; };
 		19359DD22A1B555A00FE2156 /* Rook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19359DD12A1B555A00FE2156 /* Rook.swift */; };
 		19359DD42A1B556100FE2156 /* Pawn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19359DD32A1B556100FE2156 /* Pawn.swift */; };
+		194A089D2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194A089C2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift */; };
 		19754EFF2A1A21F600AA9B5A /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19754EFE2A1A21F600AA9B5A /* Board.swift */; };
 		19754F012A1A221F00AA9B5A /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19754F002A1A221F00AA9B5A /* ChessPiece.swift */; };
 		19754F032A1A224A00AA9B5A /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19754F022A1A224A00AA9B5A /* Square.swift */; };
@@ -71,6 +72,7 @@
 		19359DCF2A1B554A00FE2156 /* Knight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knight.swift; sourceTree = "<group>"; };
 		19359DD12A1B555A00FE2156 /* Rook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rook.swift; sourceTree = "<group>"; };
 		19359DD32A1B556100FE2156 /* Pawn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pawn.swift; sourceTree = "<group>"; };
+		194A089C2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableMovePromptDot.swift; sourceTree = "<group>"; };
 		19754EFE2A1A21F600AA9B5A /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		19754F002A1A221F00AA9B5A /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		19754F022A1A224A00AA9B5A /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
@@ -108,19 +110,20 @@
 			isa = PBXGroup;
 			children = (
 				1912DE342A19CDB300549EDE /* AppDelegate.swift */,
+				19754F042A1A281E00AA9B5A /* CustomClass.swift */,
 				1912DE3C2A19CDB300549EDE /* GameViewController.swift */,
 				1912DE4B2A19DA2C00549EDE /* MainMenuScene.swift */,
 				1912DE4F2A19EF0A00549EDE /* LocalGameScene.swift */,
-				19197FB42A1F3CE300DCBC09 /* ChessGameScene.swift */,
-				1912DE3E2A19CDB300549EDE /* Main.storyboard */,
-				1912DE412A19CDB400549EDE /* Assets.xcassets */,
-				1912DE432A19CDB400549EDE /* LaunchScreen.storyboard */,
 				19106C272A1E417500166C67 /* UpGradeInterface.swift */,
 				19106C2D2A1E468700166C67 /* UpgradeChoice.swift */,
-				19754F042A1A281E00AA9B5A /* CustomClass.swift */,
 				19754EFE2A1A21F600AA9B5A /* Board.swift */,
 				19754F022A1A224A00AA9B5A /* Square.swift */,
 				19754F002A1A221F00AA9B5A /* ChessPiece.swift */,
+				19197FB42A1F3CE300DCBC09 /* ChessGameScene.swift */,
+				194A089C2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift */,
+				1912DE3E2A19CDB300549EDE /* Main.storyboard */,
+				1912DE412A19CDB400549EDE /* Assets.xcassets */,
+				1912DE432A19CDB400549EDE /* LaunchScreen.storyboard */,
 				19359DC92A1B54E500FE2156 /* King.swift */,
 				19106C292A1E452A00166C67 /* Conqueror.swift */,
 				19106C2B2A1E45F400166C67 /* Underworld_Lord.swift */,
@@ -232,6 +235,7 @@
 				19106C2E2A1E468700166C67 /* UpgradeChoice.swift in Sources */,
 				19197FB52A1F3CE300DCBC09 /* ChessGameScene.swift in Sources */,
 				19754EFF2A1A21F600AA9B5A /* Board.swift in Sources */,
+				194A089D2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift in Sources */,
 				19106C2A2A1E452A00166C67 /* Conqueror.swift in Sources */,
 				19754F032A1A224A00AA9B5A /* Square.swift in Sources */,
 				1912DE502A19EF0A00549EDE /* LocalGameScene.swift in Sources */,

@@ -110,6 +110,8 @@ class LocalGameScene: SKScene {
                     if piece.belong == 1 {
                         piece.zRotation = MLPi
                     }
+                    square.piece = piece
+                    square.hasPiece = true
                     square.addChild(piece)
                 }
                 tempRank.append(square)
@@ -237,9 +239,12 @@ class LocalGameScene: SKScene {
         print("Game Start!")
         let chessGameScene = ChessGameScene(size: self.size)
         chessGameScene.scaleMode = self.scaleMode
-        
         chessGameScene.board = self.board
-        self.view?.presentScene(chessGameScene)
+        board.removeFromParent()
+        
+        let trans = SKTransition.crossFade(withDuration: 1)
+        
+        self.view?.presentScene(chessGameScene, transition: trans)
         self.removeFromParent()
     }
     

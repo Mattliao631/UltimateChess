@@ -22,6 +22,5 @@ class Knight: ChessPiece {
     override func collectMove() {
         super.collectMove()
         KnightMove(piece: self, board: parent?.parent as! Board)
-        print(movableSquares, takableSquares)
     }
 }

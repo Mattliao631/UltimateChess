@@ -24,6 +24,5 @@ class Pawn: ChessPiece {
     override func collectMove() {
         super.collectMove()
         PawnMove(piece: self, board: parent?.parent as! Board)
-        print(movableSquares, takableSquares)
     }
 }

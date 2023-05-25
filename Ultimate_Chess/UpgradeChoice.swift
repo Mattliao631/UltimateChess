@@ -100,8 +100,7 @@ class UpgradeChoice: SKSpriteNode {
             piece!.name = "ChessPiece"
             square.piece = piece!
             square.addChild(piece)
-            
-            print("\(type)->\(imageName)->",square.childNode(withName: "ChessPiece") as! ChessPiece)
+            print(square.hasPiece)
         }
     }
     required init?(coder aDecoder: NSCoder) {

@@ -9,6 +9,7 @@ import UIKit
 import SpriteKit
 
 class Bishop: ChessPiece {
+    
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Bishop"
@@ -21,6 +22,5 @@ class Bishop: ChessPiece {
     override func collectMove() {
         super.collectMove()
         BishopMove(piece: self, board: parent?.parent as! Board)
-        print(movableSquares, takableSquares)
     }
 }

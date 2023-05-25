@@ -22,6 +22,5 @@ class Conqueror: King {
     
     override func collectMove() {
         super.collectMove()
-        print(movableSquares, takableSquares)
     }
 }

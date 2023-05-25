@@ -9,6 +9,7 @@ import UIKit
 import SpriteKit
 
 
+
 class ChessPiece: SKSpriteNode {
     
     var belong: Int = 0
@@ -18,6 +19,8 @@ class ChessPiece: SKSpriteNode {
     var takable: Bool = true
     var type: String = ""
     var cost: Int = 0
+    var canMove = true
+    
     init() {
         super.init(texture: SKTexture(imageNamed: "Test"), color: .cyan, size: currentSquare?.squareSize ?? CGSize())
         self.belong = 0
@@ -38,4 +41,21 @@ class ChessPiece: SKSpriteNode {
         takableSquares = []
     }
     
+    func move(square: Square) {
+        let previousSquare = self.currentSquare!
+        let vector = square.position - previousSquare.position
+        let action = SKAction.move(to: CGPoint(x: 0,y: 0), duration: 0.1)
+        self.run(action)
+        let piece = self
+        self.removeFromParent()
+        previousSquare.hasPiece = false
+        previousSquare.piece = nil
+        piece.currentSquare = square
+        square.hasPiece = true
+        square.piece = piece
+        piece.position = -vector
+        square.addChild(piece)
+        print(piece.position)
+    }
+    func take(square: Square) {}
 }
