@@ -10,7 +10,9 @@ import SpriteKit
 
 
 class Pawn: ChessPiece {
+    
     var canBeEnPassant: Bool = false
+    var EnPassantSquares = [Square]()
     
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
@@ -23,6 +25,68 @@ class Pawn: ChessPiece {
     
     override func collectMove() {
         super.collectMove()
+        EnPassantSquares = []
         PawnMove(piece: self, board: parent?.parent as! Board)
+    }
+    
+    override func move(square: Square) {
+        let previousSquare = self.currentSquare!
+        let vector = square.position - previousSquare.position
+        let action = SKAction.move(to: CGPoint(x: 0,y: 0), duration: 0.1)
+        self.run(action)
+        let piece = self
+        self.removeFromParent()
+        previousSquare.hasPiece = false
+        previousSquare.piece = nil
+        piece.currentSquare = square
+        square.hasPiece = true
+        square.piece = piece
+        piece.position = -vector
+        square.addChild(piece)
+        print(piece.position)
+        if abs(square.boardCoordinate.rank - previousSquare.boardCoordinate.rank) > 1 {
+            self.canBeEnPassant = true
+        }
+    }
+    
+    func EnPassant(square: Square) {
+        let board = (self.parent?.parent as! Board)
+        super.move(square: square)
+        var direction: ChessboardCoordinate!
+        if self.belong == 0 {
+            direction = ChessboardCoordinate(rank: 1)
+        } else if self.belong == 1 {
+            direction = ChessboardCoordinate(rank: -1)
+        }
+        let EnPassantOnSquare = board.getSquare(square.boardCoordinate - direction)
+        let EnPassant = EnPassantOnSquare.piece!
+        EnPassant.removeFromParent()
+        EnPassantOnSquare.hasPiece = false
+        EnPassantOnSquare.piece = nil
+    }
+    
+    override func pressentPromptDots() {
+        super.pressentPromptDots()
+        for square in EnPassantSquares {
+            let dot = AvailableMovePromptDot(type: "En Passant", size: square.size)
+            dot.name = "PromptDot"
+            square.addChild(dot)
+        }
+    }
+    
+    override func removePromptDots() {
+        super.removePromptDots()
+        for square in EnPassantSquares {
+            if let dot = (square.childNode(withName: "PromptDot") as? AvailableMovePromptDot) {
+                dot.removeFromParent()
+            }
+        }
+    }
+    
+    override func performMove(square: Square) {
+        super.performMove(square: square)
+        if self.EnPassantSquares.contains(square) {
+            self.EnPassant(square: square)
+        }
     }
 }

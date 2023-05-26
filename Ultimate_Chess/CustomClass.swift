@@ -106,13 +106,11 @@ var UltimateChessMapping = [
     "(0,0)": "White_Rook",
     "(0,1)": "White_Knight",
     "(0,2)": "White_Bishop",
-    "(0,3)": "White_Knight",
-    "(0,4)": "White_Queen",
-    "(0,5)": "White_King",
-    "(0,6)": "White_Bishop",
-    "(0,7)": "White_Knight",
-    "(0,8)": "White_Bishop",
-    "(0,9)": "White_Rook",
+    "(0,3)": "White_Queen",
+    "(0,4)": "White_King",
+    "(0,5)": "White_Bishop",
+    "(0,6)": "White_Knight",
+    "(0,7)": "White_Rook",
     
     "(1,0)": "White_Pawn",
     "(1,1)": "White_Pawn",
@@ -122,30 +120,24 @@ var UltimateChessMapping = [
     "(1,5)": "White_Pawn",
     "(1,6)": "White_Pawn",
     "(1,7)": "White_Pawn",
-    "(1,8)": "White_Pawn",
-    "(1,9)": "White_Pawn",
     
-    "(11,0)": "Black_Rook",
-    "(11,1)": "Black_Knight",
-    "(11,2)": "Black_Bishop",
-    "(11,3)": "Black_Knight",
-    "(11,4)": "Black_Queen",
-    "(11,5)": "Black_King",
-    "(11,6)": "Black_Bishop",
-    "(11,7)": "Black_Knight",
-    "(11,8)": "Black_Bishop",
-    "(11,9)": "Black_Rook",
+    "(9,0)": "Black_Rook",
+    "(9,1)": "Black_Knight",
+    "(9,2)": "Black_Bishop",
+    "(9,3)": "Black_Queen",
+    "(9,4)": "Black_King",
+    "(9,5)": "Black_Bishop",
+    "(9,6)": "Black_Knight",
+    "(9,7)": "Black_Rook",
     
-    "(10,0)": "Black_Pawn",
-    "(10,1)": "Black_Pawn",
-    "(10,2)": "Black_Pawn",
-    "(10,3)": "Black_Pawn",
-    "(10,4)": "Black_Pawn",
-    "(10,5)": "Black_Pawn",
-    "(10,6)": "Black_Pawn",
-    "(10,7)": "Black_Pawn",
-    "(10,8)": "Black_Pawn",
-    "(10,9)": "Black_Pawn",
+    "(8,0)": "Black_Pawn",
+    "(8,1)": "Black_Pawn",
+    "(8,2)": "Black_Pawn",
+    "(8,3)": "Black_Pawn",
+    "(8,4)": "Black_Pawn",
+    "(8,5)": "Black_Pawn",
+    "(8,6)": "Black_Pawn",
+    "(8,7)": "Black_Pawn",
 ]
 
 
@@ -166,10 +158,10 @@ let PieceCosts = [
     "Knight" : 0,
     "Rook" : 0,
     "Pawn" : 0,
-    "Conqueror" : 40,
+    "Conqueror" : 30,
     "Underworld_Lord" : 10,
     "The_Fantasy" : 2,
-    "Rose_Queen" : 50,
+    "Rose_Queen" : 40,
     "Space_Grimoire" : 7,
     "Divine_Blessed" : 4,
     "Unicorn" : 4,
@@ -181,7 +173,7 @@ let PieceCosts = [
 ]
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)
-let boardUpperBound = ChessboardCoordinate(rank: 11, file: 9)
+let boardUpperBound = ChessboardCoordinate(rank: 9, file: 7)
 
 func boundCheck(_ position: ChessboardCoordinate) -> Bool {
     return boardLowerBound <= position && position <= boardUpperBound
@@ -195,10 +187,10 @@ func PawnMove(piece: ChessPiece, board: Board) {
     var direction = ChessboardCoordinate()
     
     if piece.belong == 0 {
-        startRank = 1
+        startRank = boardLowerBound.rank + 1
         direction = ChessboardCoordinate(rank: 1)
     } else if piece.belong == 1 {
-        startRank = 10
+        startRank = boardUpperBound.rank - 1
         direction = ChessboardCoordinate(rank: -1)
     }
     
@@ -242,34 +234,38 @@ func PawnMove(piece: ChessPiece, board: Board) {
         }
     }
     
+    
     //En Passant 判定
-    let EnPassant1 = piece.currentSquare!.boardCoordinate + ChessboardCoordinate(file: 1)
-    let EnPassant2 = piece.currentSquare!.boardCoordinate + ChessboardCoordinate(file: -1)
-    
-    
-    //判斷旁邊是否有剛跳完的兵，如果有則將斜前方加入可移動格子（觸發移動時再判定將En Passant的敵方士兵消除
-    if boundCheck(take1) && boundCheck(EnPassant1) {
-        let EnPassantSquare = board.getSquare(EnPassant1)
-        if EnPassantSquare.hasPiece && EnPassantSquare.piece!.takable && EnPassantSquare.piece!.belong != piece.belong {
-            if let tempPawn = (EnPassantSquare.piece as? Pawn) {
-                if tempPawn.canBeEnPassant {
-                    let takeSquare = board.getSquare(take1)
-                    piece.movableSquares.append(takeSquare)
+    if let pawn = (piece as? Pawn) {
+        //判斷旁邊是否有剛跳完的兵
+        let EnPassant1 = pawn.currentSquare!.boardCoordinate + ChessboardCoordinate(file: 1)
+        let EnPassant2 = pawn.currentSquare!.boardCoordinate + ChessboardCoordinate(file: -1)
+        
+        if boundCheck(take1) && boundCheck(EnPassant1) {
+            let EnPassantSquare = board.getSquare(EnPassant1)
+            if EnPassantSquare.hasPiece && EnPassantSquare.piece!.takable && EnPassantSquare.piece!.belong != pawn.belong {
+                if let tempPawn = (EnPassantSquare.piece as? Pawn) {
+                    if tempPawn.canBeEnPassant {
+                        let takeSquare = board.getSquare(take1)
+                        pawn.EnPassantSquares.append(takeSquare)
+                    }
+                }
+            }
+        }
+        
+        if boundCheck(take2) && boundCheck(EnPassant2) {
+            let EnPassantSquare = board.getSquare(EnPassant2)
+            if EnPassantSquare.hasPiece &&  EnPassantSquare.piece!.takable && EnPassantSquare.piece!.belong != pawn.belong {
+                if let tempPawn = (EnPassantSquare.piece as? Pawn) {
+                    if tempPawn.canBeEnPassant {
+                        let takeSquare = board.getSquare(take2)
+                        pawn.EnPassantSquares.append(takeSquare)
+                    }
                 }
             }
         }
     }
-    if boundCheck(take2) && boundCheck(EnPassant2) {
-        let EnPassantSquare = board.getSquare(EnPassant2)
-        if EnPassantSquare.hasPiece &&  EnPassantSquare.piece!.takable && EnPassantSquare.piece!.belong != piece.belong {
-            if let tempPawn = (EnPassantSquare.piece as? Pawn) {
-                if tempPawn.canBeEnPassant {
-                    let takeSquare = board.getSquare(take2)
-                    piece.movableSquares.append(takeSquare)
-                }
-            }
-        }
-    }
+    
 }
 
 
@@ -299,6 +295,62 @@ func KingMove(piece: ChessPiece, board: Board) {
                 }
             } else {
                 piece.movableSquares.append(toSquare)
+            }
+        }
+    }
+    
+    if let king = (piece as? King) {
+        if !king.moved {
+            if king.belong == 0 {
+                if let kingSideRook = (board.getSquare(ChessboardCoordinate(rank: boardLowerBound.rank, file: boardUpperBound.file)).piece as? Rook) {
+                    if !kingSideRook.moved {
+                        var hasPieceBetween = false
+                        for i in (((king.currentSquare?.boardCoordinate.file)!+1)...(kingSideRook.currentSquare?.boardCoordinate.file)!-1) {
+                            let betweenSquare = board.getSquare(ChessboardCoordinate(rank: boardLowerBound.rank, file: i))
+                            hasPieceBetween = hasPieceBetween || betweenSquare.hasPiece
+                        }
+                        if !hasPieceBetween {
+                            king.castleSquares.append(board.getSquare(king.currentSquare!.boardCoordinate + ChessboardCoordinate(file: 2)))
+                        }
+                    }
+                }
+                if let queenSideRook = (board.getSquare(ChessboardCoordinate(rank: boardLowerBound.rank, file: boardLowerBound.file)).piece as? Rook) {
+                    if !queenSideRook.moved{
+                        var hasPieceBetween = false
+                        for i in ((queenSideRook.currentSquare?.boardCoordinate.file)!+1)...((king.currentSquare?.boardCoordinate.file)!-1) {
+                            let betweenSquare = board.getSquare(ChessboardCoordinate(rank: boardLowerBound.rank, file: i))
+                            hasPieceBetween = hasPieceBetween || betweenSquare.hasPiece
+                        }
+                        if !hasPieceBetween {
+                            king.castleSquares.append(board.getSquare(king.currentSquare!.boardCoordinate - ChessboardCoordinate(file: 2)))
+                        }
+                    }
+                }
+            } else if king.belong == 1 {
+                if let kingSideRook = (board.getSquare(ChessboardCoordinate(rank: boardUpperBound.rank, file: boardUpperBound.file)).piece as? Rook) {
+                    if !kingSideRook.moved {
+                        var hasPieceBetween = false
+                        for i in (((king.currentSquare?.boardCoordinate.file)!+1)...(kingSideRook.currentSquare?.boardCoordinate.file)!-1) {
+                            let betweenSquare = board.getSquare(ChessboardCoordinate(rank: boardUpperBound.rank, file: i))
+                            hasPieceBetween = hasPieceBetween || betweenSquare.hasPiece
+                        }
+                        if !hasPieceBetween {
+                            king.castleSquares.append(board.getSquare(king.currentSquare!.boardCoordinate + ChessboardCoordinate(file: 2)))
+                        }
+                    }
+                }
+                if let queenSideRook = (board.getSquare(ChessboardCoordinate(rank: boardUpperBound.rank, file: boardLowerBound.file)).piece as? Rook) {
+                    if !queenSideRook.moved{
+                        var hasPieceBetween = false
+                        for i in ((queenSideRook.currentSquare?.boardCoordinate.file)!+1)...((king.currentSquare?.boardCoordinate.file)!-1) {
+                            let betweenSquare = board.getSquare(ChessboardCoordinate(rank: boardUpperBound.rank, file: i))
+                            hasPieceBetween = hasPieceBetween || betweenSquare.hasPiece
+                        }
+                        if !hasPieceBetween {
+                            king.castleSquares.append(board.getSquare(king.currentSquare!.boardCoordinate - ChessboardCoordinate(file: 2)))
+                        }
+                    }
+                }
             }
         }
     }

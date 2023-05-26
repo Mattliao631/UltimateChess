@@ -15,6 +15,8 @@ func ==(lhs: Square, rhs: Square) -> Bool {
     }
     return false
 }
+
+
 class Square: SKSpriteNode {
     
     var boardCoordinate: ChessboardCoordinate = ChessboardCoordinate()
@@ -39,7 +41,7 @@ class Square: SKSpriteNode {
     //要初始化都用下面這一個
     init(texture: SKTexture, size: CGSize, rank: Int, file: Int) {
         
-        let w = size.width / 10
+        let w = size.width / CGFloat(boardUpperBound.file - boardLowerBound.file + 1)
         squareSize = CGSize(width: w, height: w)
         
         super.init(texture: texture, color: .white, size: squareSize)

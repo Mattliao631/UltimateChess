@@ -37,9 +37,9 @@ class LocalGameScene: SKScene {
     }
     
     func createSquares() {
-        for rank in 0...11 {
+        for rank in boardLowerBound.rank...boardUpperBound.rank {
             var tempRank = [Square]()
-            for file in 0...9 {
+            for file in boardLowerBound.file...boardUpperBound.file {
                 var imageName = ""
                 if (rank+file) % 2 == 0 {
                     imageName = "Square_Dark"
@@ -210,7 +210,7 @@ class LocalGameScene: SKScene {
     
     func createUpgradePoint() {
         for i in 0...(numberOfPlayers-1) {
-            upGradePoint.append(80)
+            upGradePoint.append(60)
             let point = SKSpriteNode(color: .cyan, size: CGSize(width: self.frame.width / 7, height: self.frame.height * 0.05))
             let label = SKLabelNode(text: "\(upGradePoint[i])")
             label.horizontalAlignmentMode = .center
