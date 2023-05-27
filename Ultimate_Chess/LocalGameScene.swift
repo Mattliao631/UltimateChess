@@ -106,7 +106,6 @@ class LocalGameScene: SKScene {
                         break
                     }
                     piece.name = "ChessPiece"
-                    piece.zPosition = 1
                     if piece.belong == 1 {
                         piece.zRotation = MLPi
                     }

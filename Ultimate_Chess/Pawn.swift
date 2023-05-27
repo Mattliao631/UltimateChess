@@ -23,6 +23,12 @@ class Pawn: ChessPiece {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func turnStartManner() {
+        super.turnStartManner()
+        self.canBeEnPassant = false
+    }
+    
+    
     override func collectMove() {
         super.collectMove()
         EnPassantSquares = []
@@ -46,6 +52,7 @@ class Pawn: ChessPiece {
         print(piece.position)
         if abs(square.boardCoordinate.rank - previousSquare.boardCoordinate.rank) > 1 {
             self.canBeEnPassant = true
+            turnStartMannerPieces[self.belong].append(self)
         }
     }
     
@@ -63,6 +70,31 @@ class Pawn: ChessPiece {
         EnPassant.removeFromParent()
         EnPassantOnSquare.hasPiece = false
         EnPassantOnSquare.piece = nil
+    }
+    
+    func Promote() {
+        let promoteList = ["Queen", "Rook", "Knight", "Bishop"]
+        var color = ""
+        var choice = [ChessPiece]()
+        if self.belong == 0 {
+            color = "White"
+        } else if self.belong == 1 {
+            color = "Black"
+        }
+        
+        for i in 0...3 {
+            let texture = SKTexture(imageNamed: "\(color)_\(promoteList[i])")
+            let choice = PromoteChoice(type: promoteList[i], texture: texture, size: self.size)
+            let backGround = SKSpriteNode(color: .white, size: self.size)
+            backGround.zPosition = -1
+            choice.zPosition = 2
+            choice.position = CGPoint(x: 0, y: CGFloat(i * (2 * belong - 1)) * self.size.height)
+            choice.size = self.size
+            choice.addChild(backGround)
+            choice.name = "Promote Choice"
+            self.addChild(choice)
+            PromotingPiece = self
+        }
     }
     
     override func pressentPromptDots() {
@@ -87,6 +119,15 @@ class Pawn: ChessPiece {
         super.performMove(square: square)
         if self.EnPassantSquares.contains(square) {
             self.EnPassant(square: square)
+        }
+        var promoteRank = 0
+        if self.belong == 0 {
+            promoteRank = 9
+        } else if self.belong == 1 {
+            promoteRank = 0
+        }
+        if self.currentSquare?.boardCoordinate.rank == promoteRank {
+            self.Promote()
         }
     }
 }

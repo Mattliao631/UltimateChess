@@ -9,15 +9,31 @@ import UIKit
 import SpriteKit
 
 
+var dieMannerPieces = [ChessPiece]()
+var turnStartMannerPieces = [[ChessPiece]]()
+var PromotingPiece: ChessPiece?
+
 class ChessGameScene: SKScene {
     var board: Board!
-    var turn = 0
-    var round = 1
+    var turn = 1
+    var round = 0
     var selectedPiece: ChessPiece?
     var TakenPiece: ChessPiece?
     
+    
+    func performDieEffect() {
+        while !dieMannerPieces.isEmpty {
+            let piece = dieMannerPieces[0]
+            piece.dieManner()
+        }
+    }
+    
     func gameStart() {
-        
+        let temp0 = [ChessPiece]()
+        let temp1 = [ChessPiece]()
+        turnStartMannerPieces.append(temp0)
+        turnStartMannerPieces.append(temp1)
+        nextTurn()
     }
     
     func roundStart() {
@@ -25,15 +41,22 @@ class ChessGameScene: SKScene {
     }
     
     func turn0Start() {
-        
+        //print("turn0 start")
+        for piece in turnStartMannerPieces[0] {
+            piece.turnStartManner()
+        }
     }
     
     func turn1Start() {
-        
+        //print("turn1 start")
+        for piece in turnStartMannerPieces[1] {
+            piece.turnStartManner()
+        }
     }
     
     override func didMove(to: SKView) {
         self.addChild(board)
+        gameStart()
     }
     
     
@@ -55,6 +78,35 @@ class ChessGameScene: SKScene {
             let touchedNode = atPoint(location)
             let name = touchedNode.name!
             
+            if PromotingPiece != nil {
+                if let choice = (touchedNode as? PromoteChoice) {
+                    let square = (PromotingPiece?.currentSquare!)!
+                    var piece:ChessPiece?
+                    let texture = choice.texture!
+                    switch choice.type {
+                    case "Queen":
+                        piece = Queen(belong: PromotingPiece!.belong, texture: texture, square: square)
+                        break
+                    case "Rook":
+                        piece = Rook(belong: PromotingPiece!.belong, texture: texture, square: square)
+                        break
+                    case "Knight":
+                        piece = Knight(belong: PromotingPiece!.belong, texture: texture, square: square)
+                        break
+                    case "Bishop":
+                        piece = Bishop(belong: PromotingPiece!.belong, texture: texture, square: square)
+                        break
+                    default:
+                        break
+                    }
+                    piece?.name = "ChessPiece"
+                    square.piece=piece
+                    square.addChild(piece!)
+                    PromotingPiece?.removeFromParent()
+                    PromotingPiece = nil
+                }
+                return
+            }
             switch name {
             case "ChessPiece":
                 if selectedPiece != nil {
@@ -72,8 +124,8 @@ class ChessGameScene: SKScene {
                 let square = touchedNode.parent as! Square
                 //Move, capture, or special move
                 selectedPiece!.performMove(square: square)
-                
                 selectedPiece!.removePromptDots()
+                
                 
                 nextTurn()
                 break

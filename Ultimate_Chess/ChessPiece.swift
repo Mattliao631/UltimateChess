@@ -22,6 +22,8 @@ class ChessPiece: SKSpriteNode {
     var canMove = true
     var moved = false
     
+    
+    
     init() {
         super.init(texture: SKTexture(imageNamed: "Test"), color: .cyan, size: currentSquare?.size ?? CGSize())
         self.belong = 0
@@ -31,16 +33,32 @@ class ChessPiece: SKSpriteNode {
         super.init(texture: texture, color: .white, size: square.size)
         self.belong = belong
         self.currentSquare = square
+        self.zPosition = 1
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func turnStartManner() {
+        self.turnStartEffect()
+    }
+    
+    private func turnStartEffect() {}
+    
+    func dieManner() {
+        self.DieEffect()
+    }
+    
+    private func DieEffect() {}
+    
     func collectMove() {
         movableSquares = []
         takableSquares = []
     }
+    
+    
     
     func move(square: Square) {
         let previousSquare = self.currentSquare!
@@ -95,6 +113,7 @@ class ChessPiece: SKSpriteNode {
         
         self.moved = true
         //print(piece.position)
+        dieMannerPieces.append(takenPiece)
     }
     
     func pressentPromptDots() {
