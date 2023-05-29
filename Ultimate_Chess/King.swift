@@ -22,6 +22,14 @@ class King: ChessPiece {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func dieManner() {
+        if self.belong == 0 {
+            GameManager.winner = 1
+        } else if self.belong == 1 {
+            GameManager.winner = 0
+        }
+    }
+    
     override func collectMove() {
         super.collectMove()
         self.castleSquares = []

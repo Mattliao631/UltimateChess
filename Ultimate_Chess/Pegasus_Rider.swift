@@ -19,6 +19,12 @@ class Pegasus_Rider: Knight {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func turnStartManner() {
+        super.turnStartManner()
+        self.canMove = GameManager.round % 2 == 0
+    }
+    
     override func collectMove() {
         self.takableSquares = []
         self.movableSquares = []

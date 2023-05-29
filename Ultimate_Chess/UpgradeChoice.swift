@@ -55,7 +55,7 @@ class UpgradeChoice: SKSpriteNode {
                 piece = Bishop(belong: belong, texture: texture, square: square)
                 break
             case "Divine_Blessed":
-                piece = Divivne_Blessed(belong: belong, texture: texture, square: square)
+                piece = Divine_Blessed(belong: belong, texture: texture, square: square)
                 break
             case "Space_Grimoire":
                 piece = Space_Grimoire(belong: belong, texture: texture, square: square)
@@ -90,13 +90,8 @@ class UpgradeChoice: SKSpriteNode {
             default:
                 break
             }
-            if piece!.belong == 1 {
-                piece!.zRotation = MLPi
-            }
             oldPiece.currentSquare = nil
             oldPiece.removeFromParent()
-            
-            piece!.name = "ChessPiece"
             square.piece = piece!
             square.addChild(piece)
             print(square.hasPiece)

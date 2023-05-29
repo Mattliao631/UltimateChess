@@ -34,6 +34,8 @@ class ChessPiece: SKSpriteNode {
         self.belong = belong
         self.currentSquare = square
         self.zPosition = 1
+        self.zRotation = MLPi * CGFloat(self.belong)
+        self.name = "ChessPiece"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -113,7 +115,7 @@ class ChessPiece: SKSpriteNode {
         
         self.moved = true
         //print(piece.position)
-        dieMannerPieces.append(takenPiece)
+        GameManager.dieMannerPieces.append(takenPiece)
     }
     
     func pressentPromptDots() {
@@ -148,5 +150,9 @@ class ChessPiece: SKSpriteNode {
         } else if self.takableSquares.contains(square) {
             self.take(square: square)
         }
+        
+        
+        GameManager.selectedPiece!.removePromptDots()
+        GameManager.nextTurn()
     }
 }

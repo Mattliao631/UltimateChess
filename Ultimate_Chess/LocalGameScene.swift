@@ -105,10 +105,6 @@ class LocalGameScene: SKScene {
                     default:
                         break
                     }
-                    piece.name = "ChessPiece"
-                    if piece.belong == 1 {
-                        piece.zRotation = MLPi
-                    }
                     square.piece = piece
                     square.hasPiece = true
                     square.addChild(piece)
@@ -238,7 +234,7 @@ class LocalGameScene: SKScene {
         print("Game Start!")
         let chessGameScene = ChessGameScene(size: self.size)
         chessGameScene.scaleMode = self.scaleMode
-        chessGameScene.board = self.board
+        GameManager.board = self.board
         board.removeFromParent()
         
         let trans = SKTransition.crossFade(withDuration: 1)

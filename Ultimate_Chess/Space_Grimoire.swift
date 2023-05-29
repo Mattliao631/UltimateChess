@@ -22,9 +22,17 @@ class Space_Grimoire: Bishop {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    override func turnStartManner() {
+        super.turnStartManner()
+        self.canMove = GameManager.round % 3 == 0
+    }
+    
     override func collectMove() {
         self.movableSquares = []
         self.takableSquares = []
         SpaceGrimoireMove(piece: self, board: parent?.parent as! Board)
     }
+    
 }

@@ -26,6 +26,14 @@ class Pawn: ChessPiece {
     override func turnStartManner() {
         super.turnStartManner()
         self.canBeEnPassant = false
+        let interval = 0...GameManager.turnStartMannerPieces[self.belong].count-1
+        for i in interval {
+            if GameManager.turnStartMannerPieces[self.belong][i] == self {
+                GameManager.turnStartMannerPieces[self.belong].remove(at: i)
+                break
+            }
+        }
+        //print(GameManager.turnStartMannerPieces)
     }
     
     
@@ -49,10 +57,10 @@ class Pawn: ChessPiece {
         square.piece = piece
         piece.position = -vector
         square.addChild(piece)
-        print(piece.position)
+        //  print(piece.position)
         if abs(square.boardCoordinate.rank - previousSquare.boardCoordinate.rank) > 1 {
             self.canBeEnPassant = true
-            turnStartMannerPieces[self.belong].append(self)
+            GameManager.turnStartMannerPieces[self.belong].append(self)
         }
     }
     
@@ -75,7 +83,6 @@ class Pawn: ChessPiece {
     func Promote() {
         let promoteList = ["Queen", "Rook", "Knight", "Bishop"]
         var color = ""
-        var choice = [ChessPiece]()
         if self.belong == 0 {
             color = "White"
         } else if self.belong == 1 {
@@ -93,7 +100,7 @@ class Pawn: ChessPiece {
             choice.addChild(backGround)
             choice.name = "Promote Choice"
             self.addChild(choice)
-            PromotingPiece = self
+            GameManager.PromotingPiece = self
         }
     }
     

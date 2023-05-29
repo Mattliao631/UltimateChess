@@ -14,7 +14,7 @@
 		19106C302A1E4F8D00166C67 /* The_Fantasy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C2F2A1E4F8D00166C67 /* The_Fantasy.swift */; };
 		19106C322A1E4FDA00166C67 /* Rose_Queen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C312A1E4FDA00166C67 /* Rose_Queen.swift */; };
 		19106C342A1E501B00166C67 /* Space_Grimoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C332A1E501B00166C67 /* Space_Grimoire.swift */; };
-		19106C362A1E506700166C67 /* Divivne_Blessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C352A1E506700166C67 /* Divivne_Blessed.swift */; };
+		19106C362A1E506700166C67 /* Divine_Blessed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C352A1E506700166C67 /* Divine_Blessed.swift */; };
 		19106C382A1E50C300166C67 /* Unicorn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C372A1E50C300166C67 /* Unicorn.swift */; };
 		19106C3A2A1E512300166C67 /* Pegasus_Rider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C392A1E512300166C67 /* Pegasus_Rider.swift */; };
 		19106C3C2A1E51C900166C67 /* The_Indestructible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C3B2A1E51C900166C67 /* The_Indestructible.swift */; };
@@ -51,7 +51,7 @@
 		19106C2F2A1E4F8D00166C67 /* The_Fantasy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Fantasy.swift; sourceTree = "<group>"; };
 		19106C312A1E4FDA00166C67 /* Rose_Queen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rose_Queen.swift; sourceTree = "<group>"; };
 		19106C332A1E501B00166C67 /* Space_Grimoire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space_Grimoire.swift; sourceTree = "<group>"; };
-		19106C352A1E506700166C67 /* Divivne_Blessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divivne_Blessed.swift; sourceTree = "<group>"; };
+		19106C352A1E506700166C67 /* Divine_Blessed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divine_Blessed.swift; sourceTree = "<group>"; };
 		19106C372A1E50C300166C67 /* Unicorn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unicorn.swift; sourceTree = "<group>"; };
 		19106C392A1E512300166C67 /* Pegasus_Rider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pegasus_Rider.swift; sourceTree = "<group>"; };
 		19106C3B2A1E51C900166C67 /* The_Indestructible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Indestructible.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 				19106C2F2A1E4F8D00166C67 /* The_Fantasy.swift */,
 				19359DCD2A1B553600FE2156 /* Bishop.swift */,
 				19106C332A1E501B00166C67 /* Space_Grimoire.swift */,
-				19106C352A1E506700166C67 /* Divivne_Blessed.swift */,
+				19106C352A1E506700166C67 /* Divine_Blessed.swift */,
 				19359DCF2A1B554A00FE2156 /* Knight.swift */,
 				19106C372A1E50C300166C67 /* Unicorn.swift */,
 				19106C392A1E512300166C67 /* Pegasus_Rider.swift */,
@@ -226,7 +226,7 @@
 				19106C402A1E528100166C67 /* Zombie.swift in Sources */,
 				19106C3A2A1E512300166C67 /* Pegasus_Rider.swift in Sources */,
 				19106C3C2A1E51C900166C67 /* The_Indestructible.swift in Sources */,
-				19106C362A1E506700166C67 /* Divivne_Blessed.swift in Sources */,
+				19106C362A1E506700166C67 /* Divine_Blessed.swift in Sources */,
 				1912DE4C2A19DA2C00549EDE /* MainMenuScene.swift in Sources */,
 				19106C282A1E417500166C67 /* UpGradeInterface.swift in Sources */,
 				19106C422A1E52DA00166C67 /* Rose_Garden_Guard.swift in Sources */,
