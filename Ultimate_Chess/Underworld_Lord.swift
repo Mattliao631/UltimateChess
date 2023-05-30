@@ -35,7 +35,6 @@ class Underworld_Lord: King {
     
     override func dieManner() {
         if !self.resurrectionMode {
-            GameManager.turnStartMannerPieces[self.belong].append(self)
             resurrectionMode = true
             
         }

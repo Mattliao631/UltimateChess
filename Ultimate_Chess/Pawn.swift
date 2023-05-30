@@ -26,13 +26,6 @@ class Pawn: ChessPiece {
     override func turnStartManner() {
         super.turnStartManner()
         self.canBeEnPassant = false
-        let interval = 0...GameManager.turnStartMannerPieces[self.belong].count-1
-        for i in interval {
-            if GameManager.turnStartMannerPieces[self.belong][i] == self {
-                GameManager.turnStartMannerPieces[self.belong].remove(at: i)
-                break
-            }
-        }
         //print(GameManager.turnStartMannerPieces)
     }
     
@@ -60,7 +53,6 @@ class Pawn: ChessPiece {
         //  print(piece.position)
         if abs(square.boardCoordinate.rank - previousSquare.boardCoordinate.rank) > 1 {
             self.canBeEnPassant = true
-            GameManager.turnStartMannerPieces[self.belong].append(self)
         }
     }
     
@@ -107,7 +99,7 @@ class Pawn: ChessPiece {
     override func pressentPromptDots() {
         super.pressentPromptDots()
         for square in EnPassantSquares {
-            let dot = AvailableMovePromptDot(type: "En Passant", size: square.size)
+            let dot = AvailableMovePromptDot(type: "Special", size: square.size)
             dot.name = "PromptDot"
             square.addChild(dot)
         }

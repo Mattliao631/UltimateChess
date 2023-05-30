@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameManager{
     static var dieMannerPieces = [ChessPiece]()
-    static var turnStartMannerPieces = [[ChessPiece]]()
+    static var pieces = [[ChessPiece]]()
     static var PromotingPiece: ChessPiece?
     static var selectedPiece: ChessPiece?
     static var winner: Int? = nil
@@ -35,17 +35,15 @@ class GameManager{
         winner=nil
         turn=1
         round=0
-        turnStartMannerPieces=[[ChessPiece]]()
+        pieces=[[ChessPiece]]()
         let temp0 = [ChessPiece]()
         let temp1 = [ChessPiece]()
-        turnStartMannerPieces.append(temp0)
-        turnStartMannerPieces.append(temp1)
+        pieces.append(temp0)
+        pieces.append(temp1)
         for rank in boardLowerBound.rank...boardUpperBound.rank {
             for file in boardLowerBound.file...boardUpperBound.file {
-                if let spaceGrimoire = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece as? Space_Grimoire) {
-                    turnStartMannerPieces[spaceGrimoire.belong].append(spaceGrimoire)
-                } else if let pegasusRider = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece as? Pegasus_Rider) {
-                    turnStartMannerPieces[pegasusRider.belong].append(pegasusRider)
+                if let piece = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece) {
+                    pieces[piece.belong].append(piece)
                 }
                 //...other turn related pieces and so on
             }
@@ -59,14 +57,14 @@ class GameManager{
     
     static func turn0Start() {
         //print("turn0 start")
-        for piece in turnStartMannerPieces[0] {
+        for piece in pieces[0] {
             piece.turnStartManner()
         }
     }
     
     static func turn1Start() {
         //print("turn1 start")
-        for piece in turnStartMannerPieces[1] {
+        for piece in pieces[1] {
             piece.turnStartManner()
         }
     }

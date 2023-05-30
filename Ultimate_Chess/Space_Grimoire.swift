@@ -11,6 +11,7 @@ import SpriteKit
 
 class Space_Grimoire: Bishop {
     
+    var coolDown: Int = 0
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Space_Grimoire"
@@ -26,13 +27,19 @@ class Space_Grimoire: Bishop {
     
     override func turnStartManner() {
         super.turnStartManner()
-        self.canMove = GameManager.round % 3 == 0
+        self.coolDown-=1
+        if self.coolDown<=0 {
+            coolDown=0
+            self.canMove = true
+        }
     }
     
     override func collectMove() {
         self.movableSquares = []
         self.takableSquares = []
         SpaceGrimoireMove(piece: self, board: parent?.parent as! Board)
+        self.coolDown=3
+        self.canMove=false
     }
     
 }
