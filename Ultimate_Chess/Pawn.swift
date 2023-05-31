@@ -57,7 +57,7 @@ class Pawn: ChessPiece {
     }
     
     func EnPassant(square: Square) {
-        let board = (self.parent?.parent as! Board)
+        let board = GameManager.board!
         super.move(square: square)
         var direction: ChessboardCoordinate!
         if self.belong == 0 {

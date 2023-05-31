@@ -8,9 +8,11 @@
 import UIKit
 import SpriteKit
 
+//let EffectPerformTime:UInt64 = 1
+
 class GameManager{
-    static var dieMannerPieces = [ChessPiece]()
-    static var pieces = [[ChessPiece]]()
+    static var touchLock: Int = 0
+    static var WaitingPiece: ChessPiece?
     static var PromotingPiece: ChessPiece?
     static var selectedPiece: ChessPiece?
     static var winner: Int? = nil
@@ -18,36 +20,32 @@ class GameManager{
     static var round = 0
     static var board: Board!
     static func nextTurn() {
-        turn = (turn + 1) % 2
-        if turn == 0 {
-            round += 1
-            roundStart()
-            turn0Start()
-        } else {
-            turn1Start()
+        //print("\(round), \(turn)")
+        let queue = DispatchQueue.global(qos: .default)
+        queue.async{
+            while touchLock != 0 {
+                Thread.sleep(forTimeInterval: 1)
+            }
+            turn = (turn + 1) % 2
+            if turn == 0 {
+                round += 1
+                roundStart()
+                turnStart()
+            } else {
+                turnStart()
+            }
+            selectedPiece = nil
         }
-        selectedPiece = nil
+        
     }
     static func gameStart() {
-        dieMannerPieces=[ChessPiece]()
-        PromotingPiece=nil
-        selectedPiece=nil
-        winner=nil
-        turn=1
-        round=0
-        pieces=[[ChessPiece]]()
-        let temp0 = [ChessPiece]()
-        let temp1 = [ChessPiece]()
-        pieces.append(temp0)
-        pieces.append(temp1)
-        for rank in boardLowerBound.rank...boardUpperBound.rank {
-            for file in boardLowerBound.file...boardUpperBound.file {
-                if let piece = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece) {
-                    pieces[piece.belong].append(piece)
-                }
-                //...other turn related pieces and so on
-            }
-        }
+        touchLock = 0
+        WaitingPiece = nil
+        PromotingPiece = nil
+        selectedPiece = nil
+        winner = nil
+        turn = 1
+        round = 0
         nextTurn()
     }
     
@@ -55,25 +53,18 @@ class GameManager{
         
     }
     
-    static func turn0Start() {
+    static func turnStart() {
         //print("turn0 start")
-        for piece in pieces[0] {
-            piece.turnStartManner()
-        }
-    }
-    
-    static func turn1Start() {
-        //print("turn1 start")
-        for piece in pieces[1] {
-            piece.turnStartManner()
-        }
-    }
-    
-    static func performDieEffect() {
-        while !dieMannerPieces.isEmpty {
-            let piece = dieMannerPieces[0]
-            piece.dieManner()
-            dieMannerPieces.remove(at:0)
+        for rank in boardLowerBound.rank...boardUpperBound.rank {
+            for file in boardLowerBound.file...boardUpperBound.file {
+                if let piece = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece) {
+                    if piece.belong == turn {
+                        piece.collectMove()
+                        piece.turnStartManner()
+                    }
+                }
+                //...other turn related pieces and so on
+            }
         }
     }
 }
@@ -82,7 +73,7 @@ class GameManager{
 class ChessGameScene: SKScene {
     
     
-    func performWin() {
+    @objc func detectWin() {
         if let winner = GameManager.winner {
             var color = ""
             if winner == 0 {
@@ -101,80 +92,68 @@ class ChessGameScene: SKScene {
             })
             alert.addAction(action)
             self.view?.window?.rootViewController?.present(alert, animated: true)
+            GameManager.winner = nil
         }
     }
     
     override func didMove(to: SKView) {
         self.addChild(GameManager.board)
         GameManager.gameStart()
+        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(detectWin), userInfo: nil, repeats: true)
     }
     
     
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
-            let location = touch.location(in: self)
-            let touchedNode = atPoint(location)
-            let name = touchedNode.name!
-            //print(touchedNode.name)
-            if GameManager.PromotingPiece != nil {
-                if let choice = (touchedNode as? PromoteChoice) {
-                    let square = (GameManager.PromotingPiece?.currentSquare!)!
-                    var piece:ChessPiece?
-                    let texture = choice.texture!
-                    switch choice.type {
-                    case "Queen":
-                        piece = Queen(belong: GameManager.PromotingPiece!.belong, texture: texture, square: square)
-                        break
-                    case "Rook":
-                        piece = Rook(belong: GameManager.PromotingPiece!.belong, texture: texture, square: square)
-                        break
-                    case "Knight":
-                        piece = Knight(belong: GameManager.PromotingPiece!.belong, texture: texture, square: square)
-                        break
-                    case "Bishop":
-                        piece = Bishop(belong: GameManager.PromotingPiece!.belong, texture: texture, square: square)
-                        break
-                    default:
-                        break
+        //print(GameManager.WaitingPiece)
+        //print(GameManager.touchLock)
+        if GameManager.touchLock == 0 {
+            for touch in touches {
+                let location = touch.location(in: self)
+                let touchedNode = atPoint(location)
+                let name = touchedNode.name!
+                //print(touchedNode.name)
+                if GameManager.PromotingPiece != nil {
+                    if let choice = (touchedNode as? PromoteChoice) {
+                        choice.performPromotion()
                     }
-                    square.piece=piece
-                    square.addChild(piece!)
-                    GameManager.PromotingPiece?.removeFromParent()
-                    GameManager.PromotingPiece = nil
+                    return
                 }
-                return
-            }
-            switch name {
-            case "ChessPiece":
-                if GameManager.selectedPiece != nil {
-                    GameManager.selectedPiece!.removePromptDots()
+                if GameManager.WaitingPiece != nil {
+                    if name == "PromptDot" {
+                        let square = touchedNode.parent as! Square
+                        //Move, capture, or special move
+                        GameManager.WaitingPiece!.performMove(square: square)
+                    }
+                    return
                 }
-                GameManager.selectedPiece = (touchedNode as! ChessPiece)
-                if GameManager.selectedPiece!.belong == GameManager.turn && GameManager.selectedPiece!.canMove {
-                    GameManager.selectedPiece!.collectMove()
-                    GameManager.selectedPiece!.pressentPromptDots()
-                } else {
-                    GameManager.selectedPiece = nil
-                }
-                break
-            case "PromptDot":
-                let square = touchedNode.parent as! Square
-                //Move, capture, or special move
-                GameManager.selectedPiece!.performMove(square: square)
-                break
-            default:
-                if name.first! == "(" {
+                switch name {
+                case "ChessPiece":
                     if GameManager.selectedPiece != nil {
                         GameManager.selectedPiece!.removePromptDots()
                     }
+                    GameManager.selectedPiece = (touchedNode as! ChessPiece)
+                    if GameManager.selectedPiece!.belong == GameManager.turn && GameManager.selectedPiece!.canMove {
+                        GameManager.selectedPiece!.pressentPromptDots()
+                    } else {
+                        GameManager.selectedPiece = nil
+                    }
+                    break
+                case "PromptDot":
+                    let square = touchedNode.parent as! Square
+                    //Move, capture, or special move
+                    GameManager.selectedPiece!.performMove(square: square)
+                    break
+                default:
+                    if name.first! == "(" {
+                        if GameManager.selectedPiece != nil {
+                            GameManager.selectedPiece!.removePromptDots()
+                        }
+                    }
+                    break
                 }
-                break
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                GameManager.performDieEffect()
-                self.performWin()
+                //self.detectWin()
             }
         }
     }

@@ -25,6 +25,7 @@ class Underworld_Lord: King {
     }
     
     override func turnStartManner() {
+        //print(self.resurrectionCount, self.resurrectionMode)
         if self.resurrectionMode {
             resurrectionCount-=1
         }
@@ -34,28 +35,36 @@ class Underworld_Lord: King {
     }
     
     override func dieManner() {
-        if !self.resurrectionMode {
-            resurrectionMode = true
-            
-        }
+        self.resurrectionMode = true
         self.resurrectionCount -= 1
-        
         if self.resurrectionCount <= 0 {
             super.dieManner()
             return
         }
-        
-        print(self.belong, self.resurrectionMode,self.resurrectionCount)
-        
-        let takenPiece = self.currentSquare!.piece!
-        takenPiece.removeFromParent()
-        currentSquare!.hasPiece = true
-        currentSquare!.piece = self
-        currentSquare!.addChild(self)
-        
-        GameManager.dieMannerPieces.append(takenPiece)
+        DispatchQueue.global().sync {
+            GameManager.touchLock+=1
+            self.dieEffect()
+            
+        }
     }
     
+    override func dieEffect() {
+        //------------------------------
+        //  生成動畫
+        //------------------------------
+        //print(self.currentSquare?.boardCoordinate.rank, self.currentSquare?.boardCoordinate.file)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let takenPiece = self.currentSquare!.piece
+            takenPiece?.removeFromParent()
+            self.currentSquare!.hasPiece = true
+            self.currentSquare!.piece = self
+            self.currentSquare!.addChild(self)
+            takenPiece?.dieManner()
+            GameManager.touchLock-=1
+        }
+        
+
+    }
     override func take(square: Square) {
         super.take(square: square)
         self.resurrectionCount += 1

@@ -123,6 +123,7 @@
 				19754F002A1A221F00AA9B5A /* ChessPiece.swift */,
 				19197FB42A1F3CE300DCBC09 /* ChessGameScene.swift */,
 				194A089C2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift */,
+				196A5BBC2A22390C00C47E25 /* PromoteChoice.swift */,
 				1912DE3E2A19CDB300549EDE /* Main.storyboard */,
 				1912DE412A19CDB400549EDE /* Assets.xcassets */,
 				1912DE432A19CDB400549EDE /* LaunchScreen.storyboard */,
@@ -144,7 +145,6 @@
 				19359DD32A1B556100FE2156 /* Pawn.swift */,
 				19106C3F2A1E528100166C67 /* Zombie.swift */,
 				19106C412A1E52DA00166C67 /* Rose_Garden_Guard.swift */,
-				196A5BBC2A22390C00C47E25 /* PromoteChoice.swift */,
 			);
 			path = Ultimate_Chess;
 			sourceTree = "<group>";
@@ -404,9 +404,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -435,9 +436,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -161,15 +161,15 @@ let PieceCosts = [
     "Conqueror" : 30,
     "Underworld_Lord" : 10,
     "The_Fantasy" : 2,
-    "Rose_Queen" : 40,
-    "Space_Grimoire" : 6,
-    "Divine_Blessed" : 4,
+    "Rose_Queen" : 30,
+    "Space_Grimoire" : 7,
+    "Divine_Blessed" : 6,
     "Unicorn" : 3,
     "Pegasus_Rider" : 4,
     "Brave_Flag" : 2,
     "The_Indestructible": 2,
-    "Zombie" : 4,
-    "Rose_Garden_Guard" : 1
+    "Zombie" : 6,
+    "Rose_Garden_Guard" : 2
 ]
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)
@@ -369,7 +369,7 @@ func BishopMove(piece: ChessPiece, board: Board) {
     
     //遍歷方向與深度收集所有可移動格子
     for direction in bishopMoveDirections {
-        for i in 1...9 {
+        for i in 1...max(boardUpperBound.file, boardUpperBound.rank) {
             let goingTo = piece.currentSquare!.boardCoordinate + i * direction
             if boundCheck(goingTo) {
                 let toSquare = board.getSquare(goingTo)
@@ -402,7 +402,7 @@ func SpaceGrimoireMove(piece: ChessPiece, board: Board) {
     
     //無視阻擋的遍歷
     for direction in bishopMoveDirections {
-        for i in 1...9 {
+        for i in 1...max(boardUpperBound.file, boardUpperBound.rank) {
             let goingTo = piece.currentSquare!.boardCoordinate + i * direction
             if boundCheck(goingTo) {
                 let toSquare = board.getSquare(goingTo)
@@ -431,7 +431,7 @@ func RookMove(piece: ChessPiece, board: Board) {
     
     //遍歷方向與深度收集所有可移動格子
     for direction in rookMoveDirections {
-        for i in 1...11 {
+        for i in 1...max(boardUpperBound.file, boardUpperBound.rank) {
             let goingTo = piece.currentSquare!.boardCoordinate + i * direction
             if boundCheck(goingTo) {
                 let toSquare = board.getSquare(goingTo)
@@ -516,6 +516,31 @@ func PegasusRiderMove(piece: ChessPiece, board: Board) {
                 } else {
                     piece.movableSquares.append(toSquare)
                 }
+            }
+        }
+    }
+}
+
+func BraveFlagMove(piece: ChessPiece, board: Board) {
+    let rookMoveDirections = [
+        ChessboardCoordinate(rank: 1),
+        ChessboardCoordinate(rank: -1),
+        ChessboardCoordinate(file: 1),
+        ChessboardCoordinate(file: -1)
+    ]
+    
+    for direction in rookMoveDirections {
+        for i in 1...max(boardUpperBound.file, boardUpperBound.rank) {
+            let goingTo = piece.currentSquare!.boardCoordinate + i * direction
+            if boundCheck(goingTo) {
+                let toSquare = board.getSquare(goingTo)
+                if toSquare.hasPiece && toSquare.piece!.belong == piece.belong && (toSquare.piece! is King) {
+                    if let flag = (piece as? Brave_Flag) {
+                        flag.BraveMoves.append(toSquare)
+                    }
+                }
+            } else {
+                break
             }
         }
     }

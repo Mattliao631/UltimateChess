@@ -61,12 +61,23 @@ class Divine_Blessed: Bishop {
     }
     
     override func performMove(square: Square) {
-        super.performMove(square: square)
+        //super.performMove - nextTurn
+        if self.movableSquares.contains(square) {
+            self.move(square: square)
+        } else if self.takableSquares.contains(square) {
+            self.take(square: square)
+        }
+        GameManager.selectedPiece!.removePromptDots()
+        
+        // Check Decection
         self.collectMove()
         for square in takableSquares {
             if (square.piece is King) {
                 self.generateClone()
             }
         }
+        
+        //nextTurn
+        GameManager.nextTurn()
     }
 }

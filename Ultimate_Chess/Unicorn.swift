@@ -23,4 +23,42 @@ class Unicorn: Knight {
     override func collectMove() {
         super.collectMove()
     }
+    
+    override func dieManner() {
+        if GameManager.WaitingPiece == self {
+            self.removePromptDots()
+            GameManager.nextTurn()
+            GameManager.WaitingPiece = nil
+        }
+    }
+    
+    override func take(square: Square) {
+        super.take(square: square)
+        GameManager.WaitingPiece = self
+        self.removePromptDots()
+        self.collectMove()
+        self.takableSquares = []
+        if self.movableSquares == [] {
+            GameManager.WaitingPiece = nil
+        }
+        //print(self.movableSquares)
+        self.pressentPromptDots()
+    }
+    override func performMove(square: Square) {
+        if GameManager.WaitingPiece == self {
+            GameManager.WaitingPiece = nil
+        }
+        self.removePromptDots()
+        
+        
+        if self.movableSquares.contains(square) {
+            self.move(square: square)
+        } else if self.takableSquares.contains(square) {
+            self.take(square: square)
+        }
+        
+        if GameManager.WaitingPiece != self {
+            GameManager.nextTurn()
+        }
+    }
 }

@@ -10,13 +10,12 @@ import SpriteKit
 
 
 class Space_Grimoire: Bishop {
-    
+    let SpaceMagicCoolDown = 3
     var coolDown: Int = 0
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Space_Grimoire"
         self.cost = PieceCosts[self.type]!
-        self.canMove = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,16 +29,21 @@ class Space_Grimoire: Bishop {
         self.coolDown-=1
         if self.coolDown<=0 {
             coolDown=0
-            self.canMove = true
         }
     }
     
     override func collectMove() {
         self.movableSquares = []
         self.takableSquares = []
-        SpaceGrimoireMove(piece: self, board: parent?.parent as! Board)
-        self.coolDown=3
-        self.canMove=false
+        if self.coolDown <= 0 {
+            SpaceGrimoireMove(piece: self, board: GameManager.board)
+        } else {
+            BishopMove(piece: self, board: GameManager.board!)
+        }
     }
     
+    override func performMove(square: Square) {
+        super.performMove(square: square)
+        self.coolDown=SpaceMagicCoolDown
+    }
 }

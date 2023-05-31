@@ -23,6 +23,7 @@ class King: ChessPiece {
     }
     
     override func dieManner() {
+        super.dieManner()
         if self.belong == 0 {
             GameManager.winner = 1
         } else if self.belong == 1 {

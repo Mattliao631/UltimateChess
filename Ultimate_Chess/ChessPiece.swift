@@ -49,11 +49,9 @@ class ChessPiece: SKSpriteNode {
     
     private func turnStartEffect() {}
     
-    func dieManner() {
-        self.DieEffect()
-    }
+    func dieManner() {}
     
-    private func DieEffect() {}
+    func dieEffect() {}
     
     func collectMove() {
         movableSquares = []
@@ -115,7 +113,7 @@ class ChessPiece: SKSpriteNode {
         
         self.moved = true
         //print(piece.position)
-        GameManager.dieMannerPieces.append(takenPiece)
+        takenPiece.dieManner()
     }
     
     func pressentPromptDots() {
@@ -150,9 +148,7 @@ class ChessPiece: SKSpriteNode {
         } else if self.takableSquares.contains(square) {
             self.take(square: square)
         }
-        
-        
-        GameManager.selectedPiece!.removePromptDots()
+        self.removePromptDots()
         GameManager.nextTurn()
     }
 }
