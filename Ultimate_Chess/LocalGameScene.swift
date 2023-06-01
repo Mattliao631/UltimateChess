@@ -203,7 +203,7 @@ class LocalGameScene: SKScene {
     
     func createUpgradePoint() {
         for i in 0...(numberOfPlayers-1) {
-            upGradePoint.append(60)
+            upGradePoint.append(50)
             let point = SKSpriteNode(color: .cyan, size: CGSize(width: self.frame.width / 7, height: self.frame.height * 0.05))
             let label = SKLabelNode(text: "\(upGradePoint[i])")
             label.horizontalAlignmentMode = .center

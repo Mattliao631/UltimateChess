@@ -44,6 +44,8 @@ class Unicorn: Knight {
         //print(self.movableSquares)
         self.pressentPromptDots()
     }
+    
+    
     override func performMove(square: Square) {
         if GameManager.WaitingPiece == self {
             GameManager.WaitingPiece = nil

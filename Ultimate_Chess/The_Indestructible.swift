@@ -24,8 +24,8 @@ class The_Indestructible: Rook {
         super.collectMove()
     }
     
-    override func performMove(square: Square) {
-        super.performMove(square: square)
+    override func move(square: Square) {
+        super.move(square: square)
         let directions = [
             ChessboardCoordinate(rank: 1, file: 0),
             ChessboardCoordinate(rank: -1, file: 0),
