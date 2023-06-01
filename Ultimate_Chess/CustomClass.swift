@@ -169,7 +169,7 @@ let PieceCosts = [
     "Brave_Flag" : 2,
     "The_Indestructible": 2,
     "Zombie" : 6,
-    "Rose_Garden_Guard" : 2
+    "Rose_Garden_Guard" : 3
 ]
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)

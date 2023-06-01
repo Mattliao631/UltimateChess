@@ -44,6 +44,7 @@ class ChessPiece: SKSpriteNode {
     
     
     func turnStartManner() {
+        self.takable = true
         self.turnStartEffect()
     }
     
@@ -143,6 +144,7 @@ class ChessPiece: SKSpriteNode {
     }
     
     func performMove(square: Square) {
+        
         if self.movableSquares.contains(square) {
             self.move(square: square)
         } else if self.takableSquares.contains(square) {
