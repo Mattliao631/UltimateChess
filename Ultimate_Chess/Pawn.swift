@@ -86,7 +86,6 @@ class Pawn: ChessPiece {
             let choice = PromoteChoice(type: promoteList[i], texture: texture, size: self.size)
             let backGround = SKSpriteNode(color: .white, size: self.size)
             backGround.zPosition = -1
-            choice.zPosition = 2
             choice.position = CGPoint(x: 0, y: CGFloat(i * (2 * belong - 1)) * self.size.height)
             choice.size = self.size
             choice.addChild(backGround)

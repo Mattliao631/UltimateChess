@@ -16,7 +16,7 @@ class AvailableMovePromptDot: SKSpriteNode {
     init(type: String, size: CGSize) {
         let texture = SKTexture(imageNamed: "Prompt_Dot_\(type)")
         super.init(texture: texture, color: .white, size: size)
-        self.zPosition = 2
+        self.zPosition = 4
     }
     
     required init?(coder aDecoder: NSCoder) {

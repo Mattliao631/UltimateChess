@@ -33,7 +33,7 @@ class ChessPiece: SKSpriteNode {
         super.init(texture: texture, color: .white, size: square.size)
         self.belong = belong
         self.currentSquare = square
-        self.zPosition = 1
+        self.zPosition = 3
         self.zRotation = MLPi * CGFloat(self.belong)
         self.name = "ChessPiece"
     }
@@ -42,13 +42,20 @@ class ChessPiece: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func gameStartManner() {
+        self.gameStartEffect()
+    }
+    
+    func gameStartEffect() {
+        
+    }
     
     func turnStartManner() {
         self.takable = true
         self.turnStartEffect()
     }
     
-    private func turnStartEffect() {}
+    func turnStartEffect() {}
     
     func dieManner() {}
     

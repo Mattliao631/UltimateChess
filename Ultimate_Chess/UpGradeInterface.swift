@@ -15,6 +15,7 @@ class UpgradeInterface: SKSpriteNode {
     init(texture: SKTexture, size: CGSize, piece: ChessPiece) {
         super.init(texture: texture, color: .white, size: size)
         selectedPiece = piece
+        self.zPosition = 3
     }
     
     required init?(coder aDecoder: NSCoder) {

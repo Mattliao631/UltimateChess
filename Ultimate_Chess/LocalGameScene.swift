@@ -31,7 +31,7 @@ class LocalGameScene: SKScene {
         board = Board(texture: texture, size: self.size)
         board.name = "ChessBoard"
         board.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        board.zPosition = -1
+        board.zPosition = -2
         self.addChild(board)
         createSquares()
     }
@@ -151,7 +151,6 @@ class LocalGameScene: SKScene {
         let interface = UpgradeInterface(texture: texture, size: size, piece: piece)
         interface.name = "Player\(piece.belong)'s Interface"
         interface.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * abs(CGFloat(piece.belong) - 0.25))
-        interface.zPosition = 2
         
         createExitButton(interface: interface)
         createUpgradeChoice(typeList: typeList, interface: interface)
@@ -194,7 +193,6 @@ class LocalGameScene: SKScene {
             label.fontSize = 25
             label.fontColor = .black
             label.text = "\(PieceCosts[type]!)"
-            label.zPosition = 1
             label.position = CGPoint(x: 0, y: -choice.size.height * 0.5)
             label.name = "Cost"
             choice.addChild(label)

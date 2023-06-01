@@ -46,6 +46,14 @@ class GameManager{
         winner = nil
         turn = 1
         round = 0
+        for rank in boardLowerBound.rank...boardUpperBound.rank {
+            for file in boardLowerBound.file...boardUpperBound.file {
+                if let piece = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece) {
+                    piece.gameStartManner()
+                }
+                //...other turn related pieces and so on
+            }
+        }
         nextTurn()
     }
     

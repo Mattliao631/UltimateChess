@@ -14,6 +14,7 @@ class UpgradeChoice: SKSpriteNode {
     init(texture: SKTexture, size: CGSize, type: String) {
         super.init(texture: texture, color: .white, size: size)
         self.type = type
+        self.zPosition = 1
     }
     func changePiece() {
         if let interface = (self.parent as? UpgradeInterface) {

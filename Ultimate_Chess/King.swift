@@ -12,6 +12,8 @@ import SpriteKit
 class King: ChessPiece {
     
     var castleSquares = [Square]()
+    var isFantastic = false
+    
     
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
@@ -34,7 +36,10 @@ class King: ChessPiece {
     override func collectMove() {
         super.collectMove()
         self.castleSquares = []
-        KingMove(piece: self, board: parent?.parent as! Board)
+        KingMove(piece: self, board: GameManager.board!)
+        if self.isFantastic {
+            QueenMove(piece: self, board: GameManager.board!)
+        }
     }
     
     func castle(square: Square) {
@@ -110,6 +115,13 @@ class King: ChessPiece {
             self.castle(square: square)
         }
         super.performMove(square: square)
+        
+        if let effect = self.currentSquare?.childNode(withName: "FantasyEffect") as? FantasyEffect {
+            if effect.belong == self.belong {
+                self.isFantastic = true
+                effect.removeFromParent()
+            }
+        }
     }
     
     

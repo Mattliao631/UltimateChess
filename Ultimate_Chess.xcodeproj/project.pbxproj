@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190965642A288C7A00B5128A /* FantasyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190965632A288C7A00B5128A /* FantasyEffect.swift */; };
 		19106C282A1E417500166C67 /* UpGradeInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C272A1E417500166C67 /* UpGradeInterface.swift */; };
 		19106C2A2A1E452A00166C67 /* Conqueror.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C292A1E452A00166C67 /* Conqueror.swift */; };
 		19106C2C2A1E45F400166C67 /* Underworld_Lord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19106C2B2A1E45F400166C67 /* Underworld_Lord.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		190965632A288C7A00B5128A /* FantasyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyEffect.swift; sourceTree = "<group>"; };
 		19106C272A1E417500166C67 /* UpGradeInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpGradeInterface.swift; sourceTree = "<group>"; };
 		19106C292A1E452A00166C67 /* Conqueror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conqueror.swift; sourceTree = "<group>"; };
 		19106C2B2A1E45F400166C67 /* Underworld_Lord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Underworld_Lord.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				19359DD32A1B556100FE2156 /* Pawn.swift */,
 				19106C3F2A1E528100166C67 /* Zombie.swift */,
 				19106C412A1E52DA00166C67 /* Rose_Garden_Guard.swift */,
+				190965632A288C7A00B5128A /* FantasyEffect.swift */,
 			);
 			path = Ultimate_Chess;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				19106C342A1E501B00166C67 /* Space_Grimoire.swift in Sources */,
 				19106C2E2A1E468700166C67 /* UpgradeChoice.swift in Sources */,
 				19197FB52A1F3CE300DCBC09 /* ChessGameScene.swift in Sources */,
+				190965642A288C7A00B5128A /* FantasyEffect.swift in Sources */,
 				19754EFF2A1A21F600AA9B5A /* Board.swift in Sources */,
 				194A089D2A1F4EF4000ED3AC /* AvailableMovePromptDot.swift in Sources */,
 				19106C2A2A1E452A00166C67 /* Conqueror.swift in Sources */,

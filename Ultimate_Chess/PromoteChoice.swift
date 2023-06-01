@@ -15,6 +15,7 @@ class PromoteChoice: SKSpriteNode {
     init(type: String, texture: SKTexture, size: CGSize) {
         super.init(texture: texture, color: .white, size: size)
         self.type = type
+        self.zPosition = 2
     }
     
     required init?(coder aDecoder: NSCoder) {
