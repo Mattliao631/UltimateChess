@@ -12,7 +12,8 @@ import SpriteKit
 class Conqueror: King {
     
     var conqueredType = ""
-    
+    var continuousTake = 0
+    let maxContinuousTake = 4
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Conqueror"
@@ -102,15 +103,20 @@ class Conqueror: King {
         }
         
         
-        GameManager.WaitingPiece = self
+        self.continuousTake += 1
         
-        self.removePromptDots()
-        self.collectMove()
-        if self.movableSquares == [] && self.takableSquares == [] {
-            GameManager.WaitingPiece = nil
+        if self.continuousTake < self.maxContinuousTake {
+            GameManager.WaitingPiece = self
+            self.removePromptDots()
+            self.collectMove()
+            if self.movableSquares == [] && self.takableSquares == [] {
+                GameManager.WaitingPiece = nil
+            }
+
+            self.pressentPromptDots()
         }
         
-        self.pressentPromptDots()
+        
     }
     
     
@@ -139,6 +145,7 @@ class Conqueror: King {
         
         if GameManager.WaitingPiece != self {
             self.conqueredType = ""
+            self.continuousTake = 0
             GameManager.nextTurn()
         }
     }
