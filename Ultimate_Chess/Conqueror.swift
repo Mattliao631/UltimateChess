@@ -13,7 +13,7 @@ class Conqueror: King {
     
     var conqueredType = ""
     var continuousTake = 0
-    let maxContinuousTake = 4
+    let maxContinuousTake = 2
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
         self.type = "Conqueror"

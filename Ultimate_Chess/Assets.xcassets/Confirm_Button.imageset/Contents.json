@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "150460478-abstract-aged-ancient-antique-background-beige-empty-brown-color-crumpled-design-empty.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

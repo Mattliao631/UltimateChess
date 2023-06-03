@@ -63,16 +63,27 @@ class GameManager{
     
     static func turnStart() {
         //print("turn0 start")
+        var noMove = true
         for rank in boardLowerBound.rank...boardUpperBound.rank {
             for file in boardLowerBound.file...boardUpperBound.file {
                 if let piece = (board.getSquare(ChessboardCoordinate(rank: rank, file: file)).piece) {
                     if piece.belong == turn {
                         piece.collectMove()
                         piece.turnStartManner()
+                        noMove = noMove && piece.takableSquares.isEmpty
+                        noMove = noMove && piece.movableSquares.isEmpty
+                        if let king = (piece as? King) {
+                            noMove = noMove && king.castleSquares.isEmpty
+                        } else if let pawn = (piece as? Pawn) {
+                            noMove = noMove && pawn.EnPassantSquares.isEmpty
+                        }
                     }
                 }
                 //...other turn related pieces and so on
             }
+        }
+        if noMove {
+            winner = -1
         }
     }
 }
@@ -83,14 +94,20 @@ class ChessGameScene: SKScene {
     
     @objc func detectWin() {
         if let winner = GameManager.winner {
-            var color = ""
+            var title = ""
+            var message = ""
             if winner == 0 {
-                color="White"
+                title="Winner is White"
+                message="Congratulations"
             } else if winner == 1 {
-                color="Black"
+                title="Winner is Black"
+                message = "Congratulations"
+            } else if winner == -1 {
+                title="Stealmate"
+                message="No one wins :("
             }
-            let alert = UIAlertController(title: "Winner is \(color)!", message: "Congratulations", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Yeah!", style: .default, handler: {_ in
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Home Page", style: .default, handler: {_ in
                 let scene = MainMenuScene(size: self.size)
                 scene.scaleMode = self.scaleMode
                 let trans = SKTransition.fade(withDuration: 1)
@@ -162,6 +179,7 @@ class ChessGameScene: SKScene {
                     break
                 }
                 //self.detectWin()
+                return
             }
         }
     }

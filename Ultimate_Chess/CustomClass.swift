@@ -158,17 +158,17 @@ let PieceCosts = [
     "Knight" : 0,
     "Rook" : 0,
     "Pawn" : 0,
-    "Conqueror" : 30,
+    "Conqueror" : 40,
     "Underworld_Lord" : 10,
     "The_Fantasy" : 2,
-    "Rose_Queen" : 40,
-    "Space_Grimoire" : 7,
+    "Rose_Queen" : 30,
+    "Space_Grimoire" : 5,
     "Divine_Blessed" : 6,
     "Unicorn" : 3,
-    "Pegasus_Rider" : 4,
+    "Pegasus_Rider" : 3,
     "Brave_Flag" : 2,
     "The_Indestructible": 2,
-    "Zombie" : 6,
+    "Zombie" : 5,
     "Rose_Garden_Guard" : 4
 ]
 

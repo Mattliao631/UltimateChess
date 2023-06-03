@@ -95,7 +95,7 @@ class UpgradeChoice: SKSpriteNode {
             oldPiece.removeFromParent()
             square.piece = piece!
             square.addChild(piece)
-            print(square.hasPiece)
+            //print(square.hasPiece)
         }
     }
     required init?(coder aDecoder: NSCoder) {

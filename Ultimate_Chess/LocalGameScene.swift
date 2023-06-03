@@ -21,7 +21,7 @@ class LocalGameScene: SKScene {
     var confirm_1 = false
     
     override func didMove(to view: SKView) {
-        print("Transition succeed!")
+        //print("Transition succeed!")
         createButtons()
         createBoard()
     }
@@ -137,7 +137,9 @@ class LocalGameScene: SKScene {
         for i in 0...(numberOfPlayers - 1) {
             let size = CGSize(width: self.frame.midX, height: self.frame.height * 0.07)
             let confirm = SKSpriteNode(color: .white, size: size)
+            confirm.texture = SKTexture(imageNamed: "Confirm_Button")
             confirm.zPosition = 1
+            confirm.zRotation = MLPi * CGFloat(i)
             confirm.position = CGPoint(x: self.frame.midX, y: self.frame.maxY * abs(CGFloat(i) - 0.07))
             confirm.name = "Player\(i)'s Confirm"
             self.addChild(confirm)
@@ -171,7 +173,7 @@ class LocalGameScene: SKScene {
     }
     
     func createUpgradeChoice (typeList: [String], interface: UpgradeInterface) {
-        print(interface.selectedPiece.belong, typeList)
+        //print(interface.selectedPiece.belong, typeList)
         var i = 0
         for type in typeList {
             var imageName = ""
@@ -195,6 +197,7 @@ class LocalGameScene: SKScene {
             label.text = "\(PieceCosts[type]!)"
             label.position = CGPoint(x: 0, y: -choice.size.height * 0.5)
             label.name = "Cost"
+            label.zPosition = 1
             choice.addChild(label)
             interface.addChild(choice)
             i+=1
@@ -203,7 +206,7 @@ class LocalGameScene: SKScene {
     
     func createUpgradePoint() {
         for i in 0...(numberOfPlayers-1) {
-            upGradePoint.append(50)
+            upGradePoint.append(40)
             let point = SKSpriteNode(color: .cyan, size: CGSize(width: self.frame.width / 7, height: self.frame.height * 0.05))
             let label = SKLabelNode(text: "\(upGradePoint[i])")
             label.horizontalAlignmentMode = .center
@@ -229,7 +232,7 @@ class LocalGameScene: SKScene {
     }
     
     func gameStart() {
-        print("Game Start!")
+        //print("Game Start!")
         let chessGameScene = ChessGameScene(size: self.size)
         chessGameScene.scaleMode = self.scaleMode
         GameManager.board = self.board
@@ -319,6 +322,7 @@ class LocalGameScene: SKScene {
                     gameStart()
                 }
             }
+            return
         }
     }
 }
