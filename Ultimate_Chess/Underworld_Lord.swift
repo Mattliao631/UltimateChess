@@ -11,7 +11,7 @@ import SpriteKit
 
 class Underworld_Lord: King {
     var resurrectionMode = false
-    var resurrectionCount = 5
+    var resurrectionCount = 7
     override init(belong: Int, texture: SKTexture, square: Square) {
         super.init(belong: belong, texture: texture, square: square)
 //        self.resurrectionMode = false

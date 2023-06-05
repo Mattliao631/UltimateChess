@@ -181,7 +181,7 @@ let PieceExplainations = [
     "Rook": "Move straightly with no limited distance, but can't penetrate other pieces.",
     "Pawn": "Only move foward one square, and take only foward one square diagonally, but on the start position it can jump 2 squares if no other pieces on the way. If it reaches the last line it can promote to either a 'Queen', 'Rook', 'Bishop', or 'Knight'",
     "Conqueror": "Just like the king, but if you take an opponent's piece, you will get its basic movability for the next move and get one more move chance, this ability can only be activated 2 times in each turn.",
-    "Underworld_Lord": "The same as the king, but when it died first time, resurrect and live more longer for 4 round, each time it died, reduce 1 round live time, when it take opponent's pieces, add one round back.",
+    "Underworld_Lord": "The same as the king, but when it died first time, resurrect and live more longer for 6 round, each time it died, reduce 1 round live time, when it take opponent's pieces, add one round back.",
     "Rose_Queen": "The 'Queen' which can reborn on your own 'Rose_Garden_Guard' when it is taken.",
     "The_Fantasy": "Like normal 'Queen', but generate one square for your king, if the king reach the square by its own move, it will get the queen movability.",
     "Space_Grimoire": "Move like a bishop, after 3 consecutive round of chant, get the ability to penetrate everything. Note that move will interrupt the chant.",
