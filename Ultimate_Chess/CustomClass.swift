@@ -164,13 +164,39 @@ let PieceCosts = [
     "Rose_Queen" : 30,
     "Space_Grimoire" : 5,
     "Divine_Blessed" : 6,
-    "Unicorn" : 3,
+    "Unicorn" : 35,
     "Pegasus_Rider" : 3,
     "Brave_Flag" : 2,
     "The_Indestructible": 2,
     "Zombie" : 5,
     "Rose_Garden_Guard" : 4
 ]
+
+
+let PieceExplainations = [
+    "King": "The most important piece, if you lose king, you lose.\nMove straightly or diagonally one square.",
+    "Queen": "Move straightly or diagonally with no limited distance, but can't penetrate other pieces.",
+    "Bishop": "Move diagonally with no limited distance, but can't penetrate other pieces.",
+    "Knight": "Move like L, such as 2 square foward and 1 square to the left or right, or other direction, can jump over pieces.",
+    "Rook": "Move straightly with no limited distance, but can't penetrate other pieces.",
+    "Pawn": "Only move foward one square, and take only foward one square diagonally, but on the start position it can jump 2 squares if no other pieces on the way. If it reaches the last line it can promote to either a 'Queen', 'Rook', 'Bishop', or 'Knight'",
+    "Conqueror": "Just like the king, but if you take an opponent's piece, you will get its basic movability for the next move and get one more move chance, this ability can only be activated 2 times in each turn.",
+    "Underworld_Lord": "The same as the king, but when it died first time, resurrect and live more longer for 4 round, each time it died, reduce 1 round live time, when it take opponent's pieces, add one round back.",
+    "Rose_Queen": "The 'Queen' which can reborn on your own 'Rose_Garden_Guard' when it is taken.",
+    "The_Fantasy": "Like normal 'Queen', but generate one square for your king, if the king reach the square by its own move, it will get the queen movability.",
+    "Space_Grimoire": "Move like a bishop, after 3 consecutive round of chant, get the ability to penetrate everything. Note that move will interrupt the chant.",
+    "Divine_Blessed": "Move like a 'Bishop', when check with itself, randomly generate one clone on adjacent square.",
+    "Unicorn": "Move like 'Knight', when it takes something, get one more move chance without attacking.",
+    "Pegasus_Rider": "Can move one more L than the Knight in the same direction.",
+    "Rose_Garden_Guard": "Like a normal 'Pawn', but can promote to a 'Rose_Queen' rather than a 'Queen'.",
+    "Zombie": "Move like a pawn, when it take a piece, transform it into your own 'Zombie' (may not work on opponent's 'Zombie').",
+    "The_Indestructible": "Move like a 'Rook', Guard adjacent allies from being took after its move for one round.",
+    "Brave_Flag": "Move like a 'Rook', when it is aligned with ally 'King', it can make transposition between itself and the 'King'."
+]
+
+
+
+
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)
 let boardUpperBound = ChessboardCoordinate(rank: 9, file: 7)

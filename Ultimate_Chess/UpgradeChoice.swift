@@ -11,10 +11,12 @@ import SpriteKit
 
 class UpgradeChoice: SKSpriteNode {
     var type = ""
-    init(texture: SKTexture, size: CGSize, type: String) {
+    var belong = 0
+    init(texture: SKTexture, size: CGSize, type: String, belong: Int) {
         super.init(texture: texture, color: .white, size: size)
         self.type = type
         self.zPosition = 1
+        self.belong = belong
     }
     func changePiece() {
         if let interface = (self.parent as? UpgradeInterface) {

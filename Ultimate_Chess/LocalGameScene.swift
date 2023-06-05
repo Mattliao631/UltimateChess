@@ -19,12 +19,14 @@ class LocalGameScene: SKScene {
     var upGradePoint = [Int]()
     var confirm_0 = false
     var confirm_1 = false
-    
+    var longPressTime: TimeInterval?
     override func didMove(to view: SKView) {
         //print("Transition succeed!")
         createButtons()
         createBoard()
+        
     }
+    
     
     func createBoard() {
         let texture = SKTexture(imageNamed: "ChessBoard")
@@ -185,7 +187,7 @@ class LocalGameScene: SKScene {
             
             let texture = SKTexture(imageNamed: imageName)
             let size = CGSize(width: interface.size.width / 3.2, height: interface.size.height * 0.7)
-            let choice = UpgradeChoice(texture: texture, size: size, type: type)
+            let choice = UpgradeChoice(texture: texture, size: size, type: type, belong: interface.selectedPiece.belong)
             choice.zPosition = 1
             choice.position = CGPoint(x: interface.size.width * (CGFloat(i) - 1) / 3, y: 0)
             choice.name = "Player\(interface.selectedPiece.belong)'s Upgrade Choice"
@@ -246,7 +248,65 @@ class LocalGameScene: SKScene {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for touch in touches {
+        self.longPressTime = touches.first?.timestamp
+        let touch = touches.first!
+        let location = touch.location(in: self)
+        let node = atPoint(location)
+        //print(node)
+        if let choice = node as? UpgradeChoice {
+            //print("??")
+            let label = SKLabelNode(text: PieceExplainations[choice.type])
+            //print(label.text)
+            label.verticalAlignmentMode = .center
+            label.fontName = "Avenir"
+            label.fontSize = 18
+            label.numberOfLines = 5
+            label.preferredMaxLayoutWidth = self.frame.width
+            label.fontColor = .black
+            label.zPosition = 1
+            label.zRotation = MLPi * CGFloat(choice.belong)
+            label.name = "Explaination\(choice.belong)"
+            let background = SKSpriteNode(color: .white, size: CGSize(width: self.frame.width, height: self.frame.width * 0.4))
+            background.texture = SKTexture(imageNamed: "Confirm_Button")
+            background.position = CGPoint(x: 0, y: (0.4 * CGFloat(choice.belong) - 0.2) * self.frame.midY)
+            background.zPosition = 10
+            background.name = "Explaination\(choice.belong)"
+            background.addChild(label)
+            board.addChild(background)
+        }
+        //print(self.longPressTime)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        //print((touches.first?.timestamp)!)
+        //print(self.longPressTime)
+        let touch = touches.first!
+        let location = touch.location(in: self)
+        let touchedNode = atPoint(location)
+        if let choice = touchedNode as? UpgradeChoice {
+            if let explaination = board.childNode(withName: "Explaination\(choice.belong)") {
+                explaination.removeFromParent()
+            }
+        } else if touchedNode.name == "Explaination0" || touchedNode.name == "Explaination1" {
+            
+            if touchedNode.parent?.name == "Explaination0" || touchedNode.parent?.name == "Explaination1" {
+                touchedNode.parent?.removeFromParent()
+            } else {
+                touchedNode.removeFromParent()
+            }
+        }
+        
+        
+        if let time = self.longPressTime {
+            let touchDuration = (touches.first?.timestamp)! - time
+            //print(touchDuration)
+            if touchDuration >= 0.2 {
+                
+                return
+            }
+        }
+        if let touch = touches.first {
             let location = touch.location(in: self)
             let touchedNode = atPoint(location)
             
@@ -265,18 +325,17 @@ class LocalGameScene: SKScene {
                 }
                 createUpgradeInterface(piece: touchedPiece, typeList: touchedType)
             } else if touchedNode.name == "BackButton" {
-                //print("BackButton!")
                 let MainMenuScene = MainMenuScene(size: self.size)
                 MainMenuScene.scaleMode = self.scaleMode
                 let trans = SKTransition.flipVertical(withDuration: 1)
                 self.view?.presentScene(MainMenuScene, transition: trans)
                 self.removeFromParent()
             } else if touchedNode.name == "Player0's Interface Exit" {
-                if let interface = self.childNode(withName: "Player0's Interface"){
+                if let interface = self.childNode(withName: "Player0's Interface") {
                     interface.removeFromParent()
                 }
             } else if touchedNode.name == "Player1's Interface Exit" {
-                if let interface = self.childNode(withName: "Player1's Interface"){
+                if let interface = self.childNode(withName: "Player1's Interface") {
                     interface.removeFromParent()
                 }
             } else if touchedNode.name == "Player0's Upgrade Choice" {
@@ -290,7 +349,7 @@ class LocalGameScene: SKScene {
                             refreshPoint(belong: 0)
                             interface.removeFromParent()
                         } else {
-                            print("Unaffordable for player 0")
+                            //print("Unaffordable for player 0")
                         }
                     }
                 }
@@ -307,7 +366,7 @@ class LocalGameScene: SKScene {
                                 interface.removeFromParent()
                             }
                         } else {
-                            print("Unaffordable for player 1")
+                            //print("Unaffordable for player 1")
                         }
                     }
                 }
