@@ -311,7 +311,11 @@ class LocalGameScene: SKScene {
             let touchedNode = atPoint(location)
             
             if let touchedPiece = touchedNode as? ChessPiece {
+                if let existingInterface = self.childNode(withName: "Player\(touchedPiece.belong)'s Interface") as? UpgradeInterface {
+                    existingInterface.removeFromParent()
+                }
                 var touchedType = [String]()
+                
                 for tuple in ChessTypes {
                     for type in tuple.value {
                         if touchedPiece.type == type {
@@ -324,6 +328,8 @@ class LocalGameScene: SKScene {
                     }
                 }
                 createUpgradeInterface(piece: touchedPiece, typeList: touchedType)
+                
+            
             } else if touchedNode.name == "BackButton" {
                 let MainMenuScene = MainMenuScene(size: self.size)
                 MainMenuScene.scaleMode = self.scaleMode

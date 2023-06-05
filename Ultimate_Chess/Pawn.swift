@@ -120,9 +120,9 @@ class Pawn: ChessPiece {
         }
         var promoteRank = 0
         if self.belong == 0 {
-            promoteRank = 9
+            promoteRank = boardUpperBound.rank
         } else if self.belong == 1 {
-            promoteRank = 0
+            promoteRank = boardLowerBound.rank
         }
         if self.currentSquare?.boardCoordinate.rank == promoteRank {
             self.Promote()

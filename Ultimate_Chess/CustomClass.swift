@@ -121,23 +121,23 @@ var UltimateChessMapping = [
     "(1,6)": "White_Pawn",
     "(1,7)": "White_Pawn",
     
-    "(9,0)": "Black_Rook",
-    "(9,1)": "Black_Knight",
-    "(9,2)": "Black_Bishop",
-    "(9,3)": "Black_Queen",
-    "(9,4)": "Black_King",
-    "(9,5)": "Black_Bishop",
-    "(9,6)": "Black_Knight",
-    "(9,7)": "Black_Rook",
+    "(7,0)": "Black_Rook",
+    "(7,1)": "Black_Knight",
+    "(7,2)": "Black_Bishop",
+    "(7,3)": "Black_Queen",
+    "(7,4)": "Black_King",
+    "(7,5)": "Black_Bishop",
+    "(7,6)": "Black_Knight",
+    "(7,7)": "Black_Rook",
     
-    "(8,0)": "Black_Pawn",
-    "(8,1)": "Black_Pawn",
-    "(8,2)": "Black_Pawn",
-    "(8,3)": "Black_Pawn",
-    "(8,4)": "Black_Pawn",
-    "(8,5)": "Black_Pawn",
-    "(8,6)": "Black_Pawn",
-    "(8,7)": "Black_Pawn",
+    "(6,0)": "Black_Pawn",
+    "(6,1)": "Black_Pawn",
+    "(6,2)": "Black_Pawn",
+    "(6,3)": "Black_Pawn",
+    "(6,4)": "Black_Pawn",
+    "(6,5)": "Black_Pawn",
+    "(6,6)": "Black_Pawn",
+    "(6,7)": "Black_Pawn",
 ]
 
 
@@ -199,7 +199,7 @@ let PieceExplainations = [
 
 
 let boardLowerBound = ChessboardCoordinate(rank: 0, file: 0)
-let boardUpperBound = ChessboardCoordinate(rank: 9, file: 7)
+let boardUpperBound = ChessboardCoordinate(rank: 7, file: 7)
 
 func boundCheck(_ position: ChessboardCoordinate) -> Bool {
     return boardLowerBound <= position && position <= boardUpperBound

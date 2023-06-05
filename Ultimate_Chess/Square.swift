@@ -47,7 +47,7 @@ class Square: SKSpriteNode {
         super.init(texture: texture, color: .white, size: squareSize)
         
         boardCoordinate = ChessboardCoordinate(rank: rank, file: file)
-        let vPosition = CGFloat((CGFloat(Float(self.boardCoordinate.rank) + 0.5)) * squareSize.height - 0.6 * size.width)
+        let vPosition = (CGFloat(self.boardCoordinate.rank) + 0.5) * squareSize.height - CGFloat(boardUpperBound.rank + 1) / 2 * w
         let hPosition = CGFloat((CGFloat(Float(self.boardCoordinate.file) + 0.5)) * squareSize.width - size.width / 2)
         //print(hPosition, vPosition)
         self.zPosition = 1
