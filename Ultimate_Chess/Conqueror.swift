@@ -136,7 +136,7 @@ class Conqueror: King {
             self.take(square: square)
         }
         
-        if let effect = self.currentSquare?.childNode(withName: "FantasyEffect") as? FantasyEffect {
+        if let effect = self.currentSquare?.childNode(withName: "FantasyEffect") as? FantasySquare {
             if effect.belong == self.belong {
                 self.isFantastic = true
                 effect.removeFromParent()

@@ -49,8 +49,8 @@ class The_Fantasy: Queen {
             }
         }
         let number = Int(arc4random()) % posibleSquare.count
-        let texture = SKTexture(imageNamed: "\(color)_Fantasy_Effect")
-        let effect = FantasyEffect(belong: self.belong, texture: texture, size: self.size)
+        let texture = SKTexture(imageNamed: "\(color)_Fantasy_Square")
+        let effect = FantasySquare(belong: self.belong, texture: texture, size: self.size)
         
         posibleSquare[number].addChild(effect)
     }

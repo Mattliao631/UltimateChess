@@ -164,7 +164,7 @@ let PieceCosts = [
     "Rose_Queen" : 30,
     "Space_Grimoire" : 5,
     "Divine_Blessed" : 6,
-    "Unicorn" : 35,
+    "Unicorn" : 40,
     "Pegasus_Rider" : 3,
     "Brave_Flag" : 2,
     "The_Indestructible": 2,

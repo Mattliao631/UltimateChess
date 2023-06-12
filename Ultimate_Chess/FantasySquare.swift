@@ -9,7 +9,7 @@ import UIKit
 import SpriteKit
 
 
-class FantasyEffect: SKSpriteNode {
+class FantasySquare: SKSpriteNode {
     var belong: Int = 0
     init(belong: Int, texture: SKTexture?, size: CGSize) {
         super.init(texture: texture, color: .white, size: size)
